@@ -8,5 +8,7 @@ CREATE TABLE maps (
   city VARCHAR(255) NOT NULL,
   country VARCHAR(255) NOT NULL,
   created_at TIMESTAMP NOT NULL,
+  latitude FLOAT NOT NULL
+  longitude FLOAT NOT NULL
   is_active BOOLEAN DEFAULT TRUE
 );
