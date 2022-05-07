@@ -14,11 +14,11 @@
 
     2. on map page
 
-### As an authenticated user, I want to modify my own maps because I change often
+### As a user, I want to modify my own maps because I change often
 
     2. on map page
 
-### As an authenticated user, I want to create a map(s) because I want to share my favourite places
+### As a user, I want to create a map(s) because I want to share my favourite places
 
     3. create map form
 

@@ -20,3 +20,6 @@ router.get("/", (req, res) => {
     });
 
     modules.exports = router;
+router.get("/:id", (req,res) => {
+
+})
