@@ -1,10 +1,14 @@
 // Client facing scripts here
 $(() => {
+  renderMap();
+});
+
+const renderMap = () => {
   navigator.geolocation.getCurrentPosition((position) => {
-    const map = L.map("map").setView(
-      [position.coords.latitude, position.coords.longitude],
-      13
-    );
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    const map = L.map("map").setView([latitude, longitude], 13);
 
     L.tileLayer(
       "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
@@ -20,4 +24,4 @@ $(() => {
       }
     ).addTo(map);
   });
-});
+};
