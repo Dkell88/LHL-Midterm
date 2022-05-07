@@ -1,4 +1,4 @@
-### As a user I want to see a list of available maps because I want an idea
+### As a user I want to see a list of available maps because I want an idea of what to do today
 
     1. (home page with search and 3 suggestions)
 

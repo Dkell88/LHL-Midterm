@@ -30,6 +30,10 @@ A web app that allows users to collaboratively create maps which list multiple "
 * Project Options
 
 # Agile 
+
+### Users
+
+
 ### Stack decisions 
 - Single page app? No
 
@@ -77,8 +81,11 @@ A web app that allows users to collaboratively create maps which list multiple "
 # Stretch
 
 * Login in page 
+* Add permissions for there maps. 
+  * User can fork a map
 * If they are no signed in and hit 
 * Grab users geolocation form browser
+* Method Overrides 
 * Have the map zoom in as the user is creating the map. As they type a city. 
 * Have multiple maps displayed
 * Randomly generate suggestions (exploritory catigories)
