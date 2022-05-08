@@ -55,3 +55,18 @@ p {
   justify-content: space-between;
   align-items: center;
 }
+
+#map {
+  height: 100vh;
+  z-index: 1;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}

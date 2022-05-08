@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles/layout.css" />
     <link rel="stylesheet" href="./styles/main.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+      crossorigin=""
+    ></script>
+
     <title>LHL-Midterm</title>
   </head>
   <body>
@@ -29,7 +41,8 @@
       </div>
     </header>
     <main id="main">
-      <div class="contact">
+      <div id="map"></div>
+      <!-- <div class="contact">
         <h2>Contact</h2>
         <div class="card">
           <form action="" method="POST">
@@ -39,10 +52,83 @@
             <input type="submit" value="Send" class="btn" />
           </form>
         </div>
-      </div>
+      </div> -->
     </main>
-    <footer id="footer" class="flex">
-      <p>Copyright &copy; DhammaDevs 2022</p>
+    <footer id="footer">
+      <p>&copy; DhammaDevs 2022</p>
     </footer>
+    <script>
+      let map = L.map("map").setView(
+        [51.01090311074301, -114.08135290095032],
+        11
+      );
+      L.tileLayer(
+        "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+        {
+          attribution:
+            'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18,
+          id: "mapbox/streets-v11",
+          tileSize: 512,
+          zoomOffset: -1,
+          accessToken:
+            "pk.eyJ1IjoiZ2FnYW5zaW5naDMiLCJhIjoiY2wyd2RqY3l2MDg2NjNjcXU5cDNoaHJmbyJ9.WaGj9j3kU-EKhz0-tQSD6w",
+        }
+      ).addTo(map);
+
+      //pin
+      // let marker = L.marker([lat, long]).addTo(map);
+
+      //circle
+      let circle = L.circle([50.9838, -114.127528], {
+        color: "red",
+        fillColor: "#f03",
+        fillOpacity: 0.5,
+        radius: 1500,
+      }).addTo(map);
+
+      //polygon shape
+      let polygon = L.polygon([
+        [51.019687, -114.095678],
+        [51.008829, -114.095421],
+        [51.00937, -114.085892],
+      ]).addTo(map);
+
+      //popups (descriptions)
+
+      //openPopup makes the popup start open
+      // marker.bindPopup("Hello From Calgary!").openPopup();
+      //hidden by default, opens on click
+      circle.bindPopup("I am a circle");
+      polygon.bindPopup("I am a polygon");
+
+      //click event
+      // function onMapClick(e) {
+      //   alert("You clicked the map at " + e.latlng);
+      // }
+
+      // map.on("click", onMapClick);
+
+      // function onMapClick(e) {
+      //   navigator.geolocation.getCurrentPosition((position) => {
+      //     let lat = position.coords.latitude;
+      //     let long = position.coords.longitude;
+
+      //     console.log(`lat: ${lat}, long: ${long}`);
+      //   });
+      // }
+
+      function success(position) {
+        let lat = position.coords.latitude;
+        let long = position.coords.longitude;
+        let marker = L.marker([lat, long]).addTo(map);
+
+        console.log("lat ", lat);
+        console.log("long ", long);
+      }
+      map.on("click", () => {
+        navigator.geolocation.getCurrentPosition(success);
+      });
+    </script>
   </body>
 </html>
