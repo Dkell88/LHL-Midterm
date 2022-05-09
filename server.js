@@ -13,7 +13,9 @@ const morgan = require("morgan");
 const { Pool } = require("pg");
 const dbParams = require("./lib/db.js");
 const db = new Pool(dbParams);
-db.connect();
+db.connect(() => {
+  console.log("DB connected", dbParams);
+});
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -38,11 +40,13 @@ app.use(express.static("public"));
 // Note: Feel free to replace the example routes below with your own
 // const usersRoutes = require("./routes/users");
 // const mapssRoutes = require("./routes/maps");
+const pointsRoutes = require("./routes/points");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 // app.use("/api/users", usersRoutes(db));
 // app.use("/api/maps", mapsRoutes(db));
+ app.use("/points", pointsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 // Home page
