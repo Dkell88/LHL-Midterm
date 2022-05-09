@@ -12,13 +12,15 @@
       integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
       crossorigin=""
     />
-    <script src="./scripts/toggle.js"></script>
+
     <script
       src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
       integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
       crossorigin=""
     ></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJmnpsppVURwTe8abQ-y5aM-OXeX-j14&libraries=places"></script>
+
+    <script type="text/javascript" src="scripts/app.js"></script>
 
     <title>LHL-Midterm</title>
   </head>
@@ -163,6 +165,15 @@
         console.log(
           `Your click is at lat: ${e.latlng.lat}, long: ${e.latlng.lng}`
         );
+      });
+    </script>
+    <script>
+      const menuToggle = document.querySelector(".toggle");
+      const showcase = document.querySelector(".showcase");
+
+      menuToggle.addEventListener("click", () => {
+        menuToggle.classList.toggle("active");
+        showcase.classList.toggle("active");
       });
     </script>
   </body>
