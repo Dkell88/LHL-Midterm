@@ -12,6 +12,7 @@
       integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
       crossorigin=""
     />
+    <script src="./scripts/toggle.js"></script>
     <script
       src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
       integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
@@ -22,42 +23,24 @@
     <title>LHL-Midterm</title>
   </head>
   <body>
-    <header id="header">
-      <div class="navbar">
-        <div class="container flex">
-          <a href="#home" class="h1">
-            <h1>Midterm Project</h1>
-          </a>
-          <div class="toggle"></div>
-          <nav>
-            <ul class="flex">
-              <li>
-                <a href="#" class="menu-icon">Explore</a>
-              </li>
-              <li><a href="#" class="menu-icon">Create</a></li>
-              <li><a href="#" class="menu-icon">User</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </header>
-    <main id="main">
+    <section class="showcase">
+      <header id="header" class="flex">
+        <h1>DR. G Maps</h1>
+        <div class="toggle"></div>
+      </header>
       <div id="map"></div>
-      <!-- <div class="contact">
-        <h2>Contact</h2>
-        <div class="card">
-          <form action="" method="POST">
-            <div class="form-control">
-              <input type="text" name="message" placeholder="Write a Message" />
-            </div>
-            <input type="submit" value="Send" class="btn" />
-          </form>
-        </div>
-      </div> -->
-    </main>
-    <footer id="footer">
+    </section>
+    <div class="menu">
+      <ul>
+        <li><a href="#">Favourites</a></li>
+        <li><a href="#">Contributions</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Logout</a></li>
+      </ul>
+    </div>
+    <!-- <footer id="footer">
       <p>&copy; DhammaDevs 2022</p>
-    </footer>
+    </footer> -->
     <script>
       // let map = L.map("map", {
       //   crs: L.CRS.Simple,
