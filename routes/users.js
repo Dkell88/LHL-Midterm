@@ -7,19 +7,28 @@
 
 const express = require("express");
 const router = express.Router();
-const userQueries = require('../db/user-queries')
+const userQueries = require("../db/user-queries");
 
-router.get("/", (req, res) => {
-  db.query(`SELECT * FROM users;`)
+//already looking at /users/
+router.get("/:id", (req, res) => {
+  db.query(
+    `
+  SELECT users.*,
+  favourites.map_id,
+  map
+   FROM users WHERE id = $1;`
+  )
     .then((data) => {
-      const users = data.rows;
-      res.json({ users });
+      const users = data.rows[0];
+      res.send({ users });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
     });
+});
+// router.get("/:id", (req,res) => {
+// ``
+// })
+modules.exports = router;
 
-    modules.exports = router;
-router.get("/:id", (req,res) => {
-
-})
+$.get(`/userrs/${USER_ID}`);

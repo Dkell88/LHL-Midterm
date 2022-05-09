@@ -17,6 +17,7 @@
       integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
       crossorigin=""
     ></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJmnpsppVURwTe8abQ-y5aM-OXeX-j14&libraries=places"></script>
 
     <title>LHL-Midterm</title>
   </head>
@@ -58,44 +59,28 @@
       <p>&copy; DhammaDevs 2022</p>
     </footer>
     <script>
-      // let map = L.map("map").setView(
-      //   [51.01090311074301, -114.08135290095032],
-      //   11
-      // );
-      let map = L.map("map", {
-        crs: L.CRS.Simple,
-        minZoom: 1,
-        maxZoom: 4,
-      });
-      let bounds = [
-        [604.8559938231735, 128.1198587140413],
-        [95.59849526072463, 580.8858370243247],
-      ];
-      //detailed map of westeros
-      // https://www.boredpanda.com/blog/wp-content/uploads/2019/04/game-of-thrones-westeros-map-julio-lacerda-29.jpg
-      let image = L.imageOverlay("azeroth.jpeg", bounds, {
-        crs: L.CRS.Simple,
-      }).addTo(map);
-      map.fitBounds(bounds);
+      // let map = L.map("map", {
+      //   crs: L.CRS.Simple,
+      //   minZoom: 1,
+      //   maxZoom: 4,
+      // });
+      // let bounds = [
+      //   [604.8559938231735, 128.1198587140413],
+      //   [95.59849526072463, 580.8858370243247],
+      // ];
+
+      // //WESTEROS MAP
+      // // https://www.boredpanda.com/blog/wp-content/uploads/2019/04/game-of-thrones-westeros-map-julio-lacerda-29.jpg
+      // let image = L.imageOverlay("azeroth.jpeg", bounds, {
+      //   crs: L.CRS.Simple,
+      // }).addTo(map);
+      // map.fitBounds(bounds);
       // L.tileLayer("westeros.png", {
       //   minZoom: 1,
       //   maxZoom: 10,
       //   contiuousWorl: false,
       //   noWrap: true,
       // }).addTo(map);
-      // L.tileLayer(
-      //   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
-      //   {
-      //     attribution:
-      //       'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      //     maxZoom: 18,
-      //     id: "mapbox/streets-v11",
-      //     tileSize: 512,
-      //     zoomOffset: -1,
-      //     accessToken:
-      //       "pk.eyJ1IjoiZ2FnYW5zaW5naDMiLCJhIjoiY2wyd2RqY3l2MDg2NjNjcXU5cDNoaHJmbyJ9.WaGj9j3kU-EKhz0-tQSD6w",
-      //   }
-      // ).addTo(map);
 
       //pin
       // let marker = L.marker([lat, lng]).addTo(map);
@@ -129,6 +114,47 @@
       // }
 
       // map.on("click", onMapClick);
+
+      //OPEN MAPS
+
+      let map = L.map("map").setView(
+        [51.01090311074301, -114.08135290095032],
+        11
+      );
+
+      //MAPBOX MAP
+      L.tileLayer(
+        "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+        {
+          attribution:
+            'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18,
+          id: "mapbox/streets-v11",
+          tileSize: 512,
+          zoomOffset: -1,
+          accessToken:
+            "pk.eyJ1IjoiZ2FnYW5zaW5naDMiLCJhIjoiY2wyd2RqY3l2MDg2NjNjcXU5cDNoaHJmbyJ9.WaGj9j3kU-EKhz0-tQSD6w",
+        }
+      ).addTo(map);
+
+      //GOOGLE PLACES SEARCH
+      // L.Control.GPlaceAutocomplete().addTo(map);
+
+      // L.Control.GPlaceAutocomplete({
+      //   callback: function (place) {
+      //     var loc = place.geometry.location;
+      //     map.setView([loc.lat(), loc.lng()], 18);
+      //   },
+      // }).addTo(map);
+
+      const searchControl = new L.esri.Controls.Geosearch().addTo(map);
+      const result = new L.LayerGroup().addTo(map);
+      searchControl.on("results", function (data) {
+        results.clearLayers();
+        for (var i = data.results.length - 1; i >= 0; i--) {
+          results.addLayer(L.marker(data.results[i].latlng));
+        }
+      });
 
       const myIcon = L.icon({
         iconUrl: "rabbit.png",
