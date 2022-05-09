@@ -27,6 +27,22 @@ const pointRouter = (db) => {
           .json({ error: err.message });
       });
     });
+    
+    router.get("/:id", (req, res) => {
+      let query = `SELECT * FROM points WHERE id = $1`;
+      let queryParams = [req.params.id]
+      console.log(queryParams);
+      db.query(query, queryParams)
+        .then(point => {
+          console.log("Point returned by /:id query is: ", point)
+          return point
+        })
+        .catch(err => {
+          res
+            .status(500)
+            .json({ error: err.message });
+        });
+      });
 
     router.post("/", (req, res) => {
       let query = `
@@ -34,9 +50,9 @@ const pointRouter = (db) => {
       VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *;`;
       const queryParams = [req.body.mapId, req.body.title, req.body.descritpion, req.body.imageURL, req.body.latitude, req.body.longitude];
-      // console.log(req.body);
-      // console.log(query);
-      // console.log(queryParams);
+      console.log(req.body);
+      console.log(query);
+      console.log(queryParams);
       db.query(query,queryParams)
         .then(pointAdded => {  
           return pointAdded.rows;

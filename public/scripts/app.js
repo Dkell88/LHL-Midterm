@@ -1,5 +1,5 @@
 // Client facing scripts here
-let PIN_ID = 0;
+let POINT_ID = 0;
 $(() => {
 
   const loadMap = function() {
@@ -57,7 +57,8 @@ $(() => {
        $.post('points/', point)
        .then(pointAdded => {
          console.log("point added to DB ", pointAdded)
-         PIN_ID = pointAdded.id;
+         POINT_ID = pointAdded.id;
+         console.log("POINT_ID is now: ", POINT_ID)
        })
       //$.get('/points/');
     }
@@ -72,9 +73,6 @@ $(() => {
     const description = $(kids[1]).val();
     const imageURL = $(kids[2]).val()
 
-    console.log(kids);
-    console.log($(kids[0]).val());
-
     if(!title || !description || !imageURL) return console.log("error missing a title, description, or image URL");
     
     let markerPopup = `
@@ -85,11 +83,15 @@ $(() => {
       </section>`
     console.log(markerPopup);
 
-    
 
-    let marker = new L.marker([point.latitude, point.longitude]);
-    marker.bindPopup(markerPopup).openPopup();
-    map.addLayer(marker);
+    $.get(`/points/:${POINT_ID}`)
+    .then(point => {
+      console.log("point returned after GET /points/:id: ", point)
+      let marker = new L.marker([point.latitude, point.longitude]);
+      marker.bindPopup(markerPopup).openPopup();
+      map.addLayer(marker);
+    })
+
   
   });
 
