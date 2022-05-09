@@ -44,7 +44,7 @@ $(() => {
       const point = {
         mapId: 41,
         title: "",
-        descritpion: "",
+        description: "",
         imageURL: "",
         latitude: event.latlng.lat,
         longitude: event.latlng.lng
@@ -57,6 +57,7 @@ $(() => {
        $.post('points/', point)
        .then(pointAdded => {
          console.log("point added to DB ", pointAdded)
+         console.log("The pointAdded.id is: ",  pointAdded.id)
          POINT_ID = pointAdded.id;
          console.log("POINT_ID is now: ", POINT_ID)
        })
@@ -69,27 +70,34 @@ $(() => {
     console.log("Sumbitted");
     event.preventDefault();
     const kids = $(this).children();
-    const title = $(kids[0]).val();
-    const description = $(kids[1]).val();
-    const imageURL = $(kids[2]).val()
+    const pointToEdit = {
+      title: $(kids[0]).val(),
+      description: $(kids[1]).val(),
+      imageURL: $(kids[2]).val()
+    };
 
-    if(!title || !description || !imageURL) return console.log("error missing a title, description, or image URL");
+
+    if(!pointToEdit.title || !pointToEdit.description || !pointToEdit.imageURL) {
+      return console.log("error missing a title, description, or image URL");
+    }
     
     let markerPopup = `
       <section class = "pin-popus">
-      <span>${title}</span><br>
-      <span>${description}</span><br>
-      <img src="${imageURL}">
+      <span>${pointToEdit.title}</span><br>
+      <span>${pointToEdit.description}</span><br>
+      <img src="${pointToEdit.imageURL}">
       </section>`
-    console.log(markerPopup);
+    //console.log(markerPopup);
 
 
-    $.get(`/points/:${POINT_ID}`)
+    //$.get(`/points/${POINT_ID}`, pointToEdit)
+    $.post(`/points/${POINT_ID}/edit`, pointToEdit)
     .then(point => {
       console.log("point returned after GET /points/:id: ", point)
       let marker = new L.marker([point.latitude, point.longitude]);
       marker.bindPopup(markerPopup).openPopup();
       map.addLayer(marker);
+      $('#pin-deets').hide()
     })
 
   
