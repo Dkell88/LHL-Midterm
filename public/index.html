@@ -4,9 +4,28 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>LHL-Midterm</title>
+
+    <!-- LINKS -->
     <link rel="stylesheet" href="./styles/layout.css" />
     <link rel="stylesheet" href="./styles/main.css" />
-    <title>LHL-Midterm</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"/>
+    <!-- External Scripts -->
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
+
+    <!-- APP Scripts -->
+    <script type="text/javascript" src="scripts/app.js"></script>
+
+    <!-- STYLES TO BE REMOVED -->
+    <style>
+      /* #map { height: 180px; } */
+      #map {position: absolute; top:100px; bottom:0; left:0; right: 0;}
+      #pin-deets {display: none}
+    </style>
+
   </head>
   <body>
     <header id="header">
@@ -41,6 +60,19 @@
         </div>
       </div>
     </main>
+
+
+    <div id="map"></div>
+    <div >
+      <form id="pin-deets">
+        <textarea name="title" placeholder="Title of the pin?"></textarea>
+        <textarea name="description" placeholder="Description of the pin?"></textarea>
+        <textarea name="img-url" placeholder="Image URL"></textarea>
+        <button class="pin-deets-submit" type="submit">sumbit</button>
+      </form>
+    </div>
+
+
     <footer id="footer" class="flex">
       <p>Copyright &copy; DhammaDevs 2022</p>
     </footer>
