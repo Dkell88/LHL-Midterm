@@ -27,6 +27,7 @@ const renderMap = (lat, long) => {
   ).addTo(map);
 
   addGoogleSearch(map);
+  addMarker(map);
 };
 
 const addGoogleSearch = (myMap) => {
@@ -53,6 +54,15 @@ const addGoogleSearch = (myMap) => {
   });
 };
 
-// if (places.length == 0) {
-//   return;
-// }
+const addMarker = (myMap) => {
+  myMap.on("click", (e) => {
+    lat = e.latlng.lat;
+    lon = e.latlng.lng;
+
+    //Add a marker to show where you clicked.
+    let marker = L.marker([lat, lon])
+      .addTo(myMap)
+      .bindPopup(`Lat: ${lat.toFixed(2)}<br> long: ${lon.toFixed(2)}`)
+      .openPopup();
+  });
+};
