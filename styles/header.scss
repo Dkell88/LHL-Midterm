@@ -1,0 +1,22 @@
+@import "variables";
+
+nav {
+  height: 5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  // padding-left: 0.5rem;
+  background-color: $primary-color;
+  .navlogo {
+    font-weight: bold;
+    color: aliceblue;
+    font-size: 1.3rem;
+  }
+  .navlinks {
+    display: flex;
+    li {
+      padding: 10px;
+    }
+  }
+}
