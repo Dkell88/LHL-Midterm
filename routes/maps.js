@@ -1,22 +1,21 @@
 /*
- * All routes for Users are defined here
- * Since this file is loaded in server.js into api/users,
- *   these routes are mounted onto /users
+ * All routes for Widgets are defined here
+ * Since this file is loaded in server.js into api/widgets,
+ *   these routes are mounted onto /widgets
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
 const express = require("express");
 const router = express.Router();
-
 // Once teh queries are working we'll pull them out to a seperate file
-//const userQueries = require('../db/user-queries')
+//const userQueries = require('../db/maps-queries')
 
-// users/
-const usersRouter = (db) => {
+// maps/
+const mapsRouter = (db) => {
   
 
   router.get("/:id", (req, res) => {
-    db.query(`SELECT * FROM users WHERE id = $1;`)
+    db.query(`SELECT * FROM maps WHERE id = $1;`)
       .then((data) => {
         const users = data.rows[0];
         res.send( users );
@@ -29,10 +28,10 @@ const usersRouter = (db) => {
     });
 
 
-
+    
     
   return router;
 };
 
 
-module.exports = usersRouter;
+module.exports = mapsRouter;

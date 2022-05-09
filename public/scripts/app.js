@@ -90,6 +90,7 @@ $(() => {
     //console.log(markerPopup);
 
 
+    //$.get(`/users/${USER_ID}`)
     //$.get(`/points/${POINT_ID}`, pointToEdit)
     $.post(`/points/${POINT_ID}/edit`, pointToEdit)
     .then(point => {

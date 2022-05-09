@@ -4,7 +4,7 @@
 
 B(rowse), R(ead), E(edit), A(dd), D(elete)
 
-# MAPs
+# maps
 
 B - GET /maps             - Home page (search) 
 
@@ -27,4 +27,16 @@ E - POST /users/:id/edit    (Stretch Put /users/:id)
 A - POST /users
 
 D - POST /users/:id/delete   (Stretch DELETE /users/:id)
+
+# points
+
+B - GET /points
+
+R - GET /points/:id
+
+E - POST /points/:id/edit    (Stretch Put /points/:id)
+
+A - POST /points
+
+D - POST /points/:id/delete   (Stretch DELETE /points/:id)
 

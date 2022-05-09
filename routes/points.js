@@ -7,10 +7,10 @@
 
 const express = require('express');
 const router  = express.Router();
-
+// Once teh queries are working we'll pull them out to a seperate file
+//const userQueries = require('../db/points-queries')
 
 const pointRouter = (db) => {
-
 
   //GET /points/
   router.get("/", (req, res) => {
