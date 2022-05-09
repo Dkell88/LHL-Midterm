@@ -13,26 +13,20 @@ const router = express.Router();
 
 // users/
 const usersRouter = (db) => {
-  
-
   router.get("/:id", (req, res) => {
-    db.query(`SELECT * FROM users WHERE id = $1;`)
-      .then((data) => {
-        const users = data.rows[0];
-        res.send( users );
+    db.query(
+      `SELECT users.name, favourites.user_id, favourites.map_id, maps.title  FROM users JOIN favourites ON  users.id = user_id JOIN maps ON users.id = maps.user_id WHERE users.id = $1;`
+    )
+      .then((usersInfo) => {
+        const users = usersInfo.rows;
+        res.send(users);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
+  });
 
-
-    });
-
-
-
-    
   return router;
 };
-
 
 module.exports = usersRouter;

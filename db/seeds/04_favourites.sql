@@ -11,6 +11,7 @@ insert into favourites ( user_id, map_id) values ( 26, 46);
 insert into favourites ( user_id, map_id) values ( 7, 18);
 insert into favourites ( user_id, map_id) values ( 25, 25);
 insert into favourites ( user_id, map_id) values ( 1, 37);
+insert into favourites ( user_id, map_id) values ( 1, 38);
 insert into favourites ( user_id, map_id) values ( 40, 19);
 insert into favourites ( user_id, map_id) values ( 43, 31);
 insert into favourites ( user_id, map_id) values ( 36, 12);
