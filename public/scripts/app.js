@@ -1,16 +1,20 @@
 // Client facing scripts here
 let POINT_ID = 0;
+const marker2 = L.marker([49.277, -122.78]);
+
 $(() => {
 
   const loadMap = function() {
     const map = L.map('map', {
-      doubleClickZoom: false}
+      doubleClickZoom: false,
+      bubblingMouseEvents: true}
       ).setView([49.262838, -122.781071], 16);
   
       return map;
   };
     
     const renderMap = function(map) {
+
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       maxZoom: 18,
@@ -19,91 +23,182 @@ $(() => {
       zoomOffset: -1,
       accessToken: 'pk.eyJ1IjoiZGtlbGw4OCIsImEiOiJjbDJ3Zm44NjMwZjVqM2RxY3gyN3J6dXJ2In0.SYE3QdtfFxH63YvUTI7FMA'
     }).addTo(map);
-  
-    const marker2 = L.marker([49.277, -122.78]).addTo(map);
    
     L.control.scale({
       metric: true,
       imperial: false,
       position: 'bottomright'
     }).addTo(map);
+    //console.log("This is the map object: ", map)
   };
   
-  const map = loadMap();
-  renderMap(map);
+  const setupLayerGroup = function(map) {
 
-  function onMapClick(event) {
-   
-    if($('#pin-deets').is(":visible")){
-      console.log("yes pin deeets is visible")
-    } 
-    if(!$('#pin-deets').is(":visible")){
-      console.log("Nope pin deeets isn't visible")
-      $('#pin-deets').show();
-     
-      const point = {
-        mapId: 41,
-        title: "",
-        description: "",
-        imageURL: "",
-        latitude: event.latlng.lat,
-        longitude: event.latlng.lng
-      }
-      // console.log(event.latlng);
-      // console.log(point);
+    let markerPopupTest = `
+      <div >
+      <form id="pointForm">
+        <textarea name="title" placeholder="Title of the pin?"></textarea><br>
+        <textarea name="description" placeholder="Description of the pin?"></textarea><br>
+        <textarea name="img-url" placeholder="Image URL"></textarea><br>
+        <button class="pin-deets-submit" type="submit">sumbit</button>
+        <button class="pin-deets-delete" type="delete">delete</button>
+      </form>
+    </div>`
+    marker2.bindPopup(markerPopupTest, {className: "pop-up"}).openPopup();
 
-      //addPoint(point); 
-
-       $.post('points/', point)
-       .then(pointAdded => {
-         console.log("point added to DB ", pointAdded)
-         console.log("The pointAdded.id is: ",  pointAdded.id)
-         POINT_ID = pointAdded.id;
-         console.log("POINT_ID is now: ", POINT_ID)
-       })
-      //$.get('/points/');
-    }
     
-  };
+    const markerLayerGroup = L.layerGroup().addTo(map);
+    markerLayerGroup.addLayer(marker2)
+   // console.log("This is the marker layer ", markerLayerGroup)
+    const layerNumber = markerLayerGroup.getLayer();
+    //console.log("This is the marker layer id", layerNumber)
+
+    var overlay = {'markers': markerLayerGroup};
+    L.control.layers(null, overlay).addTo(map);
+
+    return markerLayerGroup;
+  }
   
-  $('#pin-deets').submit(function(event) {
-    console.log("Sumbitted");
-    event.preventDefault();
-    const kids = $(this).children();
-    const pointToEdit = {
-      title: $(kids[0]).val(),
-      description: $(kids[1]).val(),
-      imageURL: $(kids[2]).val()
-    };
+  function onMapClick(event) {
+    console.log("onclick")
 
-
-    if(!pointToEdit.title || !pointToEdit.description || !pointToEdit.imageURL) {
-      return console.log("error missing a title, description, or image URL");
+    let point = {
+      mapId: 41,
+      leafletId: 8,
+      title: "",
+      description: "",
+      imageURL: "",
+      latitude: event.latlng.lat,
+      longitude: event.latlng.lng
     }
+    //console.log("Point before modifying the leaflet ID: ", point);
+    //console.log("Point before modifying the leaflet ID: ", point.leafletId);
     
     let markerPopup = `
+    <div >
+    <form class="pointForm">
+    <textarea name="title" placeholder="Title of the pin?"></textarea><br>
+    <textarea name="description" placeholder="Description of the pin?"></textarea><br>
+    <textarea name="img-url" placeholder="Image URL"></textarea><br>
+    <button class="pin-deets-submit" type="submit">sumbit</button>
+    </form>
+    </div>`
+    
+    //markerLayerGroup.removeFrom(map);
+    
+     let marker = new L.marker([point.latitude, point.longitude], {
+                                                                    bubblingMouseEvents: true,
+                                                                    draggable: true
+                                                                    });
+     marker.bindPopup(markerPopup, {className: 'pop-up'}).openPopup();
+     markerLayerGroup.addLayer(marker);
+    // console.log("This is the marker layer ", markerLayer)
+    markerLayerGroup.addTo(map)
+    markerLayerGroup.addTo(featureGroup)
+    featureGroup.addTo(map);
+    console.log("featureGroup ", featureGroup);
+    //map.addLayer(markerLayer);
+    //console.log("This is the map object: ", map);
+    //console.log("This is the layergroup object: ", markerLayerGroup);
+    //console.log("This is the markers layer ID: ", marker._leaflet_id);
+    const num = marker._leaflet_id;
+    point.leafletId = num;
+    //console.log("Point after changing the leaflet ID: ", point.leafletId);
+    
+    $.post('points/', point)
+    //.then(pointAdded => {
+      //console.log("point added to DB ", pointAdded)
+      //console.log("The pointAdded.id is: ",  pointAdded.id)
+      //POINT_ID = pointAdded.id;
+      //onsole.log("POINT_ID is now: ", POINT_ID)
+      //})
+      let markerPopupTest = `
+           <section class = "pin-popus">
+           <span>CAN I REPLACE</span><br>
+           <span>THE POP UP?</span><br>
+           <img src="http://dummyimage.com/120x100.png/ff4444/ffffff">
+           </section>`
+
+      //marker.bindPopup(markerPopupTest); 
+      marker2.setPopupContent(markerPopupTest);
+      POINT_ID = num
+      console.log(markerLayerGroup.getLayers())
+    }
+    
+    
+    $('#map').on('submit', '.pointForm', function(event) {
+      event.preventDefault();
+      console.log("Sumbitted");
+      const kids = $(this).has('textarea');
+      
+      const pointToEdit = {
+        title: $(kids[0][0]).val(),
+        description: $(kids[0][1]).val(),
+        imageURL: $(kids[0][2]).val(),
+        leafletId: -999
+      };
+      console.log(pointToEdit)
+
+      let markerPopupTest = `
       <section class = "pin-popus">
       <span>${pointToEdit.title}</span><br>
       <span>${pointToEdit.description}</span><br>
       <img src="${pointToEdit.imageURL}">
       </section>`
-    //console.log(markerPopup);
 
 
-    //$.get(`/users/${USER_ID}`)
-    //$.get(`/points/${POINT_ID}`, pointToEdit)
-    $.post(`/points/${POINT_ID}/edit`, pointToEdit)
-    .then(point => {
-      console.log("point returned after GET /points/:id: ", point)
-      let marker = new L.marker([point.latitude, point.longitude]);
-      marker.bindPopup(markerPopup).openPopup();
-      map.addLayer(marker);
-      $('#pin-deets').hide()
+      let = layerToEdit = -999;
+      const layers = markerLayerGroup.getLayers()
+      for(const layer of layers){
+        console.log(layer.isPopupOpen());
+        if (layer.isPopupOpen()) {
+          layerToEdit = layer;
+        }
+      }
+      console.log(layerToEdit._leaflet_id);
+      $.get(`points/leaflet/${layerToEdit._leaflet_id}`)
+      .then(point => {
+        console.log(point)
+        $.post(`/points/${point.id}/edit`, pointToEdit)
+          .then(point => {
+            layerToEdit.setPopupContent(markerPopupTest);
+            console.log("point returned after GET /points/:id: ", point)
+          })
+      })
+      // $.post('/render', layers)
+
+    });
+    
+    const map = loadMap();
+    renderMap(map);
+    const markerLayerGroup = setupLayerGroup(map);
+    const featureGroup = L.featureGroup();
+    map.on('click', onMapClick);
+   
+
+    featureGroup.on('click', function(ev){
+      console.log("marker layer groups has been clicked", ev)
+    })
+    
+    markerLayerGroup.on('click', function(ev){
+      console.log("marker layer groups has been clicked", ev)
     })
 
-  
+  //   function createPhotoMarker(place) {
+  //     var photos = place.photos;
+  //     if (!photos) {
+  //       return;
+  //     }
+    
+  //     var marker = new google.maps.Marker({
+  //       map: map,
+  //       position: place.geometry.location,
+  //       title: place.name,
+  //       icon: photos[0].getUrl({maxWidth: 35, maxHeight: 35})
+  //     });
+  //     return marker.icon;
+  //   }
+    
+  //  url = createPhotoMarker()
+
   });
-
-  map.on('click', onMapClick);
-
-});

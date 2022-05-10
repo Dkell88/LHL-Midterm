@@ -15,16 +15,14 @@ const mapsRouter = (db) => {
   
 
   router.get("/:id", (req, res) => {
-    db.query(`SELECT * FROM maps WHERE id = $1;`)
+    db.query(`SELECT * FROM maps WHERE id = ${req.params.id};`)
       .then((data) => {
-        const users = data.rows[0];
-        res.send( users );
+        const maps = data.rows[0];
+        res.send( maps );
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
-
-
     });
 
 

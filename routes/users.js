@@ -12,8 +12,18 @@ const router = express.Router();
 //const userQueries = require('../db/user-queries')
 
 // users/
-const usersRouter = (db) => {
+const usersRouter = (db) => { 
   
+  router.get("/", (req, res) => {
+    db.query(`SELECT * FROM users;`)
+      .then((data) => {
+        const users = data.rows[0];
+        res.send( users );
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+    });
 
   router.get("/:id", (req, res) => {
     db.query(`SELECT * FROM users WHERE id = $1;`)
@@ -24,8 +34,6 @@ const usersRouter = (db) => {
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
-
-
     });
 
 

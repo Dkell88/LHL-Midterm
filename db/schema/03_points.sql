@@ -8,5 +8,6 @@ CREATE TABLE points (
   description VARCHAR(255) NOT NULL,
   image_url VARCHAR(255) NOT NULL,
   latitude FLOAT NOT NULL,
-  longitude FLOAT NOT NULL
+  longitude FLOAT NOT NULL,
+  leaflet_id INTEGER DEFAULT -1
 );

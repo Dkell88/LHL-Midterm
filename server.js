@@ -23,16 +23,20 @@ app.use(morgan("dev"));
 //app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(
-//   "/styles",
-//   sassMiddleware({
-//     source: __dirname + "/styles",
-//     destination: __dirname + "/public/styles",
-//     isSass: false, // false => scss, true => sass
-//   })
-// );
+app.use(
+  "/styles",
+  sassMiddleware({
+    source: __dirname + "/styles",
+    destination: __dirname + "/public/styles",
+    isSass: false, // false => scss, true => sass
+  })
+);
 
 app.use(express.static("public"));
+
+// app.post('/render', (req,res) => {
+//   console.log(req)
+// });
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
@@ -44,6 +48,7 @@ const pointsRoutes = require("./routes/points");
 app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db));
 app.use("/points", pointsRoutes(db));
+
 
 // Note: mount other resources here, using the same pattern above
 
