@@ -13,13 +13,18 @@ const userQueries = require("../db/user-queries");
 router.get("/:id", (req, res) => {
   db.query(
     `
-  SELECT users.*,
-  favourites.map_id,
-  map
-   FROM users WHERE id = $1;`
+    SELECT users.name,
+    favourites.map_id,
+    favourites.user_id
+    maps.title
+
+    FROM users
+    JOIN maps ON maps.id = favourites.map_id
+    JOIN favourites ON users.id = favourites.user_id
+    WHERE user_id = $1;`
   )
     .then((data) => {
-      const users = data.rows[0];
+      const users = data.rows;
       res.send({ users });
     })
     .catch((err) => {
@@ -31,4 +36,4 @@ router.get("/:id", (req, res) => {
 // })
 modules.exports = router;
 
-$.get(`/userrs/${USER_ID}`);
+$.get(`/users/${USER_ID}`);
