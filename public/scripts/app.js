@@ -1,4 +1,4 @@
-// Client facing scripts here
+
 let POINT_ID = 0;
 const marker2 = L.marker([49.277, -122.78]);
 
