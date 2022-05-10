@@ -7,7 +7,7 @@ $(() => {
       bubblingMouseEvents: true,
     }).setView([49.262838, -122.781071], 16);
 
-    addGoogleSearch(map);
+    // addGoogleSearch(map);
     return map;
   };
 
@@ -47,7 +47,7 @@ $(() => {
         <button class="pin-deets-delete" type="delete">delete</button>
       </form>
     </div>`;
-    marker2.bindPopup(markerPopupTest, { className: "pop-up" }).openPopup();
+    //marker2.bindPopup(markerPopupTest, { className: "pop-up" }).openPopup();
 
     const markerLayerGroup = L.layerGroup().addTo(map);
     // markerLayerGroup.addLayer(marker2);
@@ -122,7 +122,7 @@ $(() => {
            </section>`;
 
     //marker.bindPopup(markerPopupTest);
-    marker2.setPopupContent(markerPopupTest);
+    // marker2.setPopupContent(markerPopupTest);
     POINT_ID = num;
     console.log(markerLayerGroup.getLayers());
   }

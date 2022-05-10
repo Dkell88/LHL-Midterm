@@ -57,7 +57,100 @@ p {
   align-items: center;
 }
 
-.pin-popus{
+.pin-popus {
   color: red;
   background-color: aqua;
+}
+.showcase {
+  position: absolute;
+  right: 0;
+  width: 100%;
+  min-height: 100vh;
+  transition: 0.5s;
+
+  #header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    z-index: 1000;
+
+    .nav {
+      display: flex;
+      align-items: center;
+
+      .toggle {
+        position: relative;
+        width: 60px;
+        height: 60px;
+        background: url("../icons/menu.png");
+        background-repeat: no-repeat;
+        background-size: 30px;
+        background-position: center;
+        cursor: pointer;
+        transition: background-size 0.3s;
+        &:hover {
+          background-size: 35px;
+        }
+      }
+      .active {
+        background: url("../icons/close.png");
+        background-repeat: no-repeat;
+        background-size: 30px;
+        background-position: center;
+      }
+    }
+  }
+
+  #map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+}
+.showcase.active {
+  right: 250px;
+}
+
+.menu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: $primary-color;
+
+  width: 250px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ul {
+    position: relative;
+    li {
+      .title {
+        padding: 0.5rem 0;
+      }
+      a {
+        font-size: 1.8rem;
+      }
+      h3 {
+        font-size: 1.1rem;
+        padding-left: 0.5rem;
+      }
+    }
+  }
+}
+
+#footer {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
 }

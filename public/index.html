@@ -4,9 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>LHL-Midterm</title>
-
     <!-- LINKS -->
     <link rel="stylesheet" href="./styles/layout.css" />
     <link rel="stylesheet" href="./styles/main.css" />
@@ -25,27 +22,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
 
-    <!-- APP Scripts -->
-    <script type="text/javascript" src="scripts/app.js"></script>
-    <!-- <script type="text/javascript" src="scripts/favourites.js"></script> -->
-
-    <!-- google maps api -->
+    <!-- Google Api -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJmnpsppVURwTe8abQ-y5aM-OXeX-j14&libraries=places%22%3E"></script>
 
-    <!-- STYLES TO BE REMOVED -->
-    <style>
-      /* #map { height: 180px; } */
-      #map {
-        position: absolute;
-        top: 100px;
-        bottom: 100px;
-        left: 0;
-        right: 0;
-      }
-      #pin-deets {
-        display: none;
-      }
-    </style>
+    <!-- Jquery -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!-- Js scripts -->
+    <script type="text/javascript" src="scripts/app.js"></script>
+    <script type="text/javascript" src="scripts/favourites.js"></script>
+    <script type="text/javascript" src="scripts/toggle.js"></script>
+
+    <title>LHL-Midterm</title>
   </head>
   <body>
     <!-- map with navbar -->
@@ -80,5 +73,61 @@
         <li class="title"><a href="#">Logout</a></li>
       </ul>
     </div>
+
+    <script>
+      // let map = L.map("map", {
+      //   crs: L.CRS.Simple,
+      //   minZoom: 1,
+      //   maxZoom: 4,
+      // });
+      // let bounds = [
+      //   [604.8559938231735, 128.1198587140413],
+      //   [95.59849526072463, 580.8858370243247],
+      // ];
+
+      // //WESTEROS MAP
+      // // https://www.boredpanda.com/blog/wp-content/uploads/2019/04/game-of-thrones-westeros-map-julio-lacerda-29.jpg
+      // let image = L.imageOverlay("azeroth.jpeg", bounds, {
+      //   crs: L.CRS.Simple,
+      // }).addTo(map);
+      // map.fitBounds(bounds);
+      // L.tileLayer("westeros.png", {
+      //   minZoom: 1,
+      //   maxZoom: 10,
+      //   contiuousWorl: false,
+      //   noWrap: true,
+      // }).addTo(map);
+
+      // map.on("click", (e) => {
+      //   navigator.geolocation.getCurrentPosition((position) => {
+      //     let marker = L.marker([e.latlng.lat, e.latlng.lng], {
+      //       icon: myIcon,
+      //       draggable: true,
+      //     }).addTo(map);
+      //   });
+      //   console.log(
+      //     `Your click is at lat: ${e.latlng.lat}, long: ${e.latlng.lng}`
+      //   );
+      // });
+      // let map = L.map("map").setView(
+      //   [51.01090311074301, -114.08135290095032],
+      //   11
+      // );
+
+      // //MAPBOX MAP
+      // L.tileLayer(
+      //   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+      //   {
+      //     attribution:
+      //       'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      //     maxZoom: 18,
+      //     id: "mapbox/streets-v11",
+      //     tileSize: 512,
+      //     zoomOffset: -1,
+      //     accessToken:
+      //       "pk.eyJ1IjoiZ2FnYW5zaW5naDMiLCJhIjoiY2wyd2RqY3l2MDg2NjNjcXU5cDNoaHJmbyJ9.WaGj9j3kU-EKhz0-tQSD6w",
+      //   }
+      // ).addTo(map);
+    </script>
   </body>
 </html>

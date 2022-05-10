@@ -13,7 +13,9 @@ const morgan = require("morgan");
 const { Pool } = require("pg");
 const dbParams = require("./lib/db.js");
 const db = new Pool(dbParams);
-db.connect();
+db.connect(() => {
+  console.log("db is connected");
+});
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -48,7 +50,6 @@ const pointsRoutes = require("./routes/points");
 app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db));
 app.use("/points", pointsRoutes(db));
-
 
 // Note: mount other resources here, using the same pattern above
 

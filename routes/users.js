@@ -7,40 +7,32 @@
 
 const express = require("express");
 const router = express.Router();
-
-// Once teh queries are working we'll pull them out to a seperate file
-//const userQueries = require('../db/user-queries')
-
-// users/
-const usersRouter = (db) => { 
-  
-  router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then((data) => {
-        const users = data.rows[0];
-        res.send( users );
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-    });
-
+// const userQueries = require("../db/user-queries");
+const userRouter = (db) => {
   router.get("/:id", (req, res) => {
-    db.query(`SELECT * FROM users WHERE id = $1;`)
+    db.query(
+      `
+      SELECT users.name,
+      favourites.map_id,
+      favourites.user_id,
+      maps.title
+      FROM users
+      JOIN favourites ON users.id = favourites.user_id
+      JOIN maps ON maps.id = favourites.map_id
+
+      WHERE favourites.user_id = 1;`
+    )
       .then((data) => {
-        const users = data.rows[0];
-        res.send( users );
+        const users = data.rows;
+        console.log("users", users);
+        res.json({ users });
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
-    });
+  });
 
-
-
-    
   return router;
 };
 
-
-module.exports = usersRouter;
+module.exports = userRouter;
