@@ -15,6 +15,7 @@ $(() => {
         position: "bottomright",
       })
       .addTo(map);
+
     L.control
       .zoom({
         position: "bottomright",
