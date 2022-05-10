@@ -5,9 +5,23 @@ $(() => {
     const map = L.map("map", {
       doubleClickZoom: false,
       bubblingMouseEvents: true,
+      zoomControl: false,
     }).setView([49.262838, -122.781071], 16);
 
-    // addGoogleSearch(map);
+    L.control
+      .scale({
+        metric: true,
+        imperial: false,
+        position: "bottomright",
+      })
+      .addTo(map);
+    L.control
+      .zoom({
+        position: "bottomright",
+      })
+      .addTo(map);
+
+    addGoogleSearch(map);
     return map;
   };
 
@@ -26,13 +40,6 @@ $(() => {
       }
     ).addTo(map);
 
-    L.control
-      .scale({
-        metric: true,
-        imperial: false,
-        position: "bottomright",
-      })
-      .addTo(map);
     //console.log("This is the map object: ", map)
   };
 
@@ -56,7 +63,8 @@ $(() => {
     //console.log("This is the marker layer id", layerNumber)
 
     var overlay = { markers: markerLayerGroup };
-    L.control.layers(null, overlay).addTo(map);
+    const options = { position: "bottomleft" };
+    L.control.layers(null, overlay, options).addTo(map);
 
     return markerLayerGroup;
   };
@@ -193,16 +201,14 @@ $(() => {
 //////GAGANDEEP APP
 
 const addGoogleSearch = (myMap) => {
-  console.log(myMap);
-
-  const GooglePlacesSearchBox = L.Control.extend({
-    onAdd: function () {
-      const element = document.createElement("input");
-      element.id = "searchBox";
-      return element;
-    },
-  });
-  new GooglePlacesSearchBox().addTo(myMap);
+  // const GooglePlacesSearchBox = L.Control.extend({
+  //   onAdd: function () {
+  //     const element = document.createElement("input");
+  //     element.id = "searchBox";
+  //     return element;
+  //   },
+  // });
+  // new GooglePlacesSearchBox().addTo(myMap);
 
   const input = document.getElementById("searchBox");
   const searchBox = new google.maps.places.SearchBox(input);
@@ -211,7 +217,7 @@ const addGoogleSearch = (myMap) => {
     const places = searchBox.getPlaces();
 
     //we can also use .panTo
-    myMap.flyTo(
+    myMap.panTo(
       [places[0].geometry.location.lat(), places[0].geometry.location.lng()],
       8
     );
