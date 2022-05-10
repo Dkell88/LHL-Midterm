@@ -84,6 +84,10 @@ p {
         background-size: 30px;
         background-position: center;
         cursor: pointer;
+        transition: background-size 0.3s;
+        &:hover {
+          background-size: 35px;
+        }
       }
       .active {
         background: url("../icons/close.png");

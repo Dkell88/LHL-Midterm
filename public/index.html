@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- style sheets -->
     <link rel="stylesheet" href="./styles/layout.css" />
     <link rel="stylesheet" href="./styles/main.css" />
     <link
@@ -13,19 +15,31 @@
       crossorigin=""
     />
 
+    <!-- Leaflet API -->
     <script
       src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
       integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
       crossorigin=""
     ></script>
+    <!-- Google Api -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJmnpsppVURwTe8abQ-y5aM-OXeX-j14&libraries=places"></script>
 
+    <!-- Jquery -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <!-- Js scripts -->
     <script type="text/javascript" src="scripts/app.js"></script>
     <script type="text/javascript" src="scripts/favourites.js"></script>
 
     <title>LHL-Midterm</title>
   </head>
   <body>
+    <!-- map with navbar -->
     <section class="showcase">
       <header id="header" class="flex">
         <h1>DR. G Maps</h1>
@@ -34,8 +48,10 @@
           <div class="toggle"></div>
         </div>
       </header>
+      <!-- where the map sits -->
       <div id="map"></div>
     </section>
+    <!-- the sidebar -->
     <div class="menu">
       <ul>
         <li>
@@ -145,24 +161,24 @@
       //   },
       // }).addTo(map);
 
-      const searchControl = new L.esri.Controls.Geosearch().addTo(map);
-      const result = new L.LayerGroup().addTo(map);
-      searchControl.on("results", function (data) {
-        results.clearLayers();
-        for (var i = data.results.length - 1; i >= 0; i--) {
-          results.addLayer(L.marker(data.results[i].latlng));
-        }
-      });
+      // const searchControl = new L.esri.Controls.Geosearch().addTo(map);
+      // const result = new L.LayerGroup().addTo(map);
+      // searchControl.on("results", function (data) {
+      //   results.clearLayers();
+      //   for (var i = data.results.length - 1; i >= 0; i--) {
+      //     results.addLayer(L.marker(data.results[i].latlng));
+      //   }
+      // });
 
-      const myIcon = L.icon({
-        iconUrl: "rabbit.png",
-        iconSize: [64, 64],
-        iconAnchor: [22, 94],
-        popupAnchor: [-3, -76],
-        // shadowUrl: "my-icon-shadow.png",
-        // shadowSize: [68, 95],
-        // shadowAnchor: [22, 94],
-      });
+      // const myIcon = L.icon({
+      //   iconUrl: "rabbit.png",
+      //   iconSize: [64, 64],
+      //   iconAnchor: [22, 94],
+      //   popupAnchor: [-3, -76],
+      //   // shadowUrl: "my-icon-shadow.png",
+      //   // shadowSize: [68, 95],
+      //   // shadowAnchor: [22, 94],
+      // });
 
       // L.marker([50.505, 30.57], { icon: myIcon }).addTo(map);
 
