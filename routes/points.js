@@ -25,7 +25,7 @@ const pointRouter = (db) => {
       });
   });
 
-  router.get("/:mapId", (req, res) => {
+  router.get("/maps/:mapId", (req, res) => {
     // let query = `SELECT * FROM points WHERE id = $1`;
     let query = `
     SELECT points.latitude, points.longitude

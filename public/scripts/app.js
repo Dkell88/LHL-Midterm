@@ -15,7 +15,7 @@ $(() => {
       console.log(data);
     });
 
-    $.ajax(`/points/${mapId}`, { method: "GET" }).then((data) => {
+    $.ajax(`/maps/points/${mapId}`, { method: "GET" }).then((data) => {
       console.log(data);
       const testMarker = L.marker([data.latitude, data.longitude]).addTo(map);
     });
