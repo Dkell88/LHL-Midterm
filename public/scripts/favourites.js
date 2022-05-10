@@ -5,9 +5,9 @@ const createFavElement = (data) => {
   return $fav;
 };
 
-const renderFav = function (tweets) {
+const renderFav = function (favs) {
   for (const fav of favs) {
-    $("#tweet-container").prepend(createFavElement(tweet));
+    $(".favs").prepend(createFavElement(fav));
   }
 };
 
