@@ -35,7 +35,7 @@ $(() => {
   const setupLayerGroup = function(map) {
 
     let markerPopupTest = `
-      <div >
+      <div>
       <form id="pointForm">
         <textarea name="title" placeholder="Title of the pin?"></textarea><br>
         <textarea name="description" placeholder="Description of the pin?"></textarea><br>
@@ -86,10 +86,12 @@ $(() => {
     
     //markerLayerGroup.removeFrom(map);
     
-     let marker = new L.marker([point.latitude, point.longitude], {
-                                                                    bubblingMouseEvents: true,
-                                                                    draggable: true
-                                                                    });
+     let marker = new L.marker(
+       [point.latitude, point.longitude], 
+       {
+        bubblingMouseEvents: true,
+        // draggable: true
+        });
      marker.bindPopup(markerPopup, {className: 'pop-up'}).openPopup();
      markerLayerGroup.addLayer(marker);
     // console.log("This is the marker layer ", markerLayer)
@@ -126,6 +128,8 @@ $(() => {
     }
     
     
+
+
     $('#map').on('submit', '.pointForm', function(event) {
       event.preventDefault();
       console.log("Sumbitted");
@@ -169,11 +173,20 @@ $(() => {
 
     });
     
+    // $('#map').on('click', '.leaflet-marker-draggable', function(event) {
+    //     console.log("CLick event, hopefully do to drag?", event)
+    // });
+
+    const onMapMouseUp = function (event) {
+      console.log("this is a mouse up event: ", event)
+    }
+
     const map = loadMap();
     renderMap(map);
     const markerLayerGroup = setupLayerGroup(map);
     const featureGroup = L.featureGroup();
     map.on('click', onMapClick);
+    map.on('mouseup', onMapMouseUp,);
    
 
     featureGroup.on('click', function(ev){
@@ -183,22 +196,5 @@ $(() => {
     markerLayerGroup.on('click', function(ev){
       console.log("marker layer groups has been clicked", ev)
     })
-
-  //   function createPhotoMarker(place) {
-  //     var photos = place.photos;
-  //     if (!photos) {
-  //       return;
-  //     }
-    
-  //     var marker = new google.maps.Marker({
-  //       map: map,
-  //       position: place.geometry.location,
-  //       title: place.name,
-  //       icon: photos[0].getUrl({maxWidth: 35, maxHeight: 35})
-  //     });
-  //     return marker.icon;
-  //   }
-    
-  //  url = createPhotoMarker()
 
   });
