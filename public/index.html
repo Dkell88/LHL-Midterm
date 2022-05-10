@@ -10,30 +10,75 @@
     <!-- LINKS -->
     <link rel="stylesheet" href="./styles/layout.css" />
     <link rel="stylesheet" href="./styles/main.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"/>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+      integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+      crossorigin=""
+    />
     <!-- External Scripts -->
-    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"></script>
+    <script
+      src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+      integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+      crossorigin=""
+    ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
 
     <!-- APP Scripts -->
     <script type="text/javascript" src="scripts/app.js"></script>
+    <!-- <script type="text/javascript" src="scripts/favourites.js"></script> -->
+
+    <!-- google maps api -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJmnpsppVURwTe8abQ-y5aM-OXeX-j14&libraries=places%22%3E"></script>
 
     <!-- STYLES TO BE REMOVED -->
     <style>
       /* #map { height: 180px; } */
-      #map {position: absolute; top:100px; bottom: 100px; left:0; right: 0;}
-      #pin-deets {display: none}
+      #map {
+        position: absolute;
+        top: 100px;
+        bottom: 100px;
+        left: 0;
+        right: 0;
+      }
+      #pin-deets {
+        display: none;
+      }
     </style>
-
   </head>
   <body>
-
-    <div id="map"></div>
-
-
-    <footer id="footer" class="flex">
-      <p>Copyright &copy; DhammaDevs 2022</p>
-    </footer>
+    <!-- map with navbar -->
+    <section class="showcase">
+      <header id="header" class="flex">
+        <h1>DR. G Maps</h1>
+        <div class="nav">
+          <div id="searchbox">SOME SERACH BAR HERE</div>
+          <div class="toggle"></div>
+        </div>
+      </header>
+      <!-- where the map sits -->
+      <div id="map"></div>
+    </section>
+    <!-- the sidebar -->
+    <div class="menu">
+      <ul>
+        <!-- Favourites list -->
+        <li class="title">
+          <ul>
+            <a href="#" class="list">Favourites</a>
+            <section class="favs"></section>
+          </ul>
+        </li>
+        <li class="title">
+          <ul>
+            <a href="#" class="list">Contributions</a>
+            <section class="contri"></section>
+          </ul>
+        </li>
+        <li class="title"><a href="#">Account Settings</a></li>
+        <li class="title"><a href="#">Logout</a></li>
+      </ul>
+    </div>
   </body>
 </html>
