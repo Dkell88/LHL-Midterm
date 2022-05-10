@@ -80,7 +80,15 @@ p {
     .nav {
       display: flex;
       align-items: center;
+      #searchBox {
+        height: 2rem;
+        border-radius: 5px;
+        padding: 0 0.5rem;
 
+        &:focus {
+          outline: none;
+        }
+      }
       .toggle {
         position: relative;
         width: 60px;
