@@ -1,13 +1,24 @@
+//favourites
 const createFavElement = (data) => {
-  const $fav = `<li>
-  <h3>${data.user.name}</h3>
+  const $fav = `<li class="show-map">
+  <a><h3>${data.title}</h3></a>
   </li>`;
   return $fav;
 };
 
 const renderFav = function (favs) {
-  for (const fav of favs) {
+  for (const fav of favs.users) {
+    console.log("FAV", fav);
     $(".favs").prepend(createFavElement(fav));
+  }
+};
+
+//contirbutions
+
+const renderContri = function (data) {
+  for (const fav of data.users) {
+    console.log("FAV", fav);
+    $(".contri").prepend(createFavElement(fav));
   }
 };
 
@@ -31,10 +42,20 @@ const loadFav = (id) => {
     url: `/users/${id}`,
     success: (response) => {
       // { users }
-      console.log();
+      console.log(response);
       renderFav(response);
+      renderContri(response);
     },
   });
+  // $.ajax({
+  //   type: "GET",
+  //   url: `/users/contri/${id}`,
+  //   success: (response) => {
+  //     // { users }
+  //     console.log(response);
+  //     renderContri(response);
+  //   },
+  // });
 };
 
 $(() => {

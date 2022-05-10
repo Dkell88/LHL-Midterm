@@ -22,7 +22,7 @@
       crossorigin=""
     ></script>
     <!-- Google Api -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJmnpsppVURwTe8abQ-y5aM-OXeX-j14&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByJmnpsppVURwTe8abQ-y5aM-OXeX-j14&libraries=places%22%3E"></script>
 
     <!-- Jquery -->
     <script
@@ -33,7 +33,7 @@
     ></script>
 
     <!-- Js scripts -->
-    <script type="text/javascript" src="scripts/app.js"></script>
+    <!-- <script type="text/javascript" src="scripts/app.js"></script> -->
     <script type="text/javascript" src="scripts/favourites.js"></script>
 
     <title>LHL-Midterm</title>
@@ -44,7 +44,7 @@
       <header id="header" class="flex">
         <h1>DR. G Maps</h1>
         <div class="nav">
-          <div id="searchbox"></div>
+          <div id="searchbox">SOME SERACH BAR HERE</div>
           <div class="toggle"></div>
         </div>
       </header>
@@ -54,19 +54,21 @@
     <!-- the sidebar -->
     <div class="menu">
       <ul>
-        <li>
-          <ul class="favourites">
-            <a href="#">Favourites</a>
+        <!-- Favourites list -->
+        <li class="title">
+          <ul>
+            <a href="#" class="list">Favourites</a>
             <section class="favs"></section>
           </ul>
         </li>
-        <li>
+        <li class="title">
           <ul>
-            <a href="#">Contributions</a>
+            <a href="#" class="list">Contributions</a>
+            <section class="contri"></section>
           </ul>
         </li>
-        <li><a href="#">Account Settings</a></li>
-        <li><a href="#">Logout</a></li>
+        <li class="title"><a href="#">Account Settings</a></li>
+        <li class="title"><a href="#">Logout</a></li>
       </ul>
     </div>
     <!-- <footer id="footer">
@@ -199,10 +201,16 @@
     <script>
       const menuToggle = document.querySelector(".toggle");
       const showcase = document.querySelector(".showcase");
+      const dropDown = document.querySelector(".favourites");
 
       menuToggle.addEventListener("click", () => {
         menuToggle.classList.toggle("active");
         showcase.classList.toggle("active");
+      });
+
+      dropDown.addEventListener("click", () => {
+        console.log("clicked");
+        loadFav(1);
       });
     </script>
   </body>
