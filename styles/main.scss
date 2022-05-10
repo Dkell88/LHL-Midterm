@@ -71,21 +71,26 @@ p {
     padding: 1rem;
     z-index: 1000;
 
-    .toggle {
-      position: relative;
-      width: 60px;
-      height: 60px;
-      background: url("../icons/menu.png");
-      background-repeat: no-repeat;
-      background-size: 30px;
-      background-position: center;
-      cursor: pointer;
-    }
-    .active {
-      background: url("../icons/close.png");
-      background-repeat: no-repeat;
-      background-size: 30px;
-      background-position: center;
+    .nav {
+      display: flex;
+      align-items: center;
+
+      .toggle {
+        position: relative;
+        width: 60px;
+        height: 60px;
+        background: url("../icons/menu.png");
+        background-repeat: no-repeat;
+        background-size: 30px;
+        background-position: center;
+        cursor: pointer;
+      }
+      .active {
+        background: url("../icons/close.png");
+        background-repeat: no-repeat;
+        background-size: 30px;
+        background-position: center;
+      }
     }
   }
 
