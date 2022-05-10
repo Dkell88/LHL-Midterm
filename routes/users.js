@@ -25,7 +25,7 @@ router.get("/:id", (req, res) => {
   )
     .then((data) => {
       const users = data.rows;
-      res.send({ users });
+      res.json({ users });
     })
     .catch((err) => {
       res.status(500).json({ error: err.message });
