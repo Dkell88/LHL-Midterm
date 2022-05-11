@@ -14,6 +14,14 @@ const addGoogleSearch = (myMap) => {
   });
 };
 
+const getCurrentUserLocation = (map) => {
+  navigator.geolocation.getCurrentPosition((position) => {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    map.setView([latitude, longitude], 15);
+  });
+};
+
 const loadMap = function () {
   const map = L.map("map", {
     doubleClickZoom: false,
@@ -35,7 +43,7 @@ const loadMap = function () {
     .addTo(map);
 
   addGoogleSearch(map);
-
+  getCurrentUserLocation(map);
   // Posting new map title,lat,long to server
   $("#new-map").click(() => {
     const bounds = map.getBounds();
