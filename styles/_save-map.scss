@@ -1,0 +1,13 @@
+#save-map {
+  position: absolute;
+  bottom: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 40000;
+  input,
+  button {
+    height: 2rem;
+  }
+}
