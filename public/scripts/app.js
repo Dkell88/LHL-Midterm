@@ -150,10 +150,7 @@ $(() => {
    
   $('#map').on('submit', '.pointForm', function(event) {
     event.preventDefault();  
-    
-      const photoURL = 'https://source.unsplash.com/random'
-      console.log(photoURL);
-      
+
       const kids = $(this).has('textarea');
         const pointToEdit = {
           title: $(kids[0][0]).val(),
@@ -166,7 +163,7 @@ $(() => {
           <section class = "pin-popus">
           <span>${pointToEdit.title}</span><br>
           <span>${pointToEdit.description}</span><br>
-            <img src="${photoURL}">
+            <img src="${pointToEdit.imageURL}">
             <div>
             <button class="pin-deets-edit">Edit</button>
             <button class="pin-deets-delete">Delete</button>
@@ -283,7 +280,6 @@ $(() => {
         })   
     });
     
-    const map = loadMap();
     renderMap(map);
     const markerLayerGroup = setupLayerGroup(map);
     map.on('click', onMapClick);
