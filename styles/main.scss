@@ -93,11 +93,12 @@ p {
           outline: none;
         }
       }
+
       .heart {
         height: 40px;
         width: 60px;
         padding-right: 1rem;
-        background: url("../icons/heart.png") no-repeat;
+        background: url("../icons/heart-2.png") no-repeat;
         background-size: 40px;
 
         &:hover {
@@ -106,7 +107,7 @@ p {
           border-bottom: none;
         }
         &.saved {
-          background: url("../icons/heart-full.png") no-repeat;
+          background: url("../icons/heart-full-2.png") no-repeat;
           background-size: 40px;
         }
       }
