@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   z-index: 40000;
-  transition: 0.5s;
+  transition: right 0.5s;
   input,
   button {
     border-radius: 25px;
@@ -23,11 +23,14 @@
   button {
     background-color: $primary-color;
     cursor: pointer;
-    transition: 0.5s;
+
     &:hover {
       background-color: $grey-color;
       height: 2.2rem;
       width: 5.5rem;
     }
   }
+}
+#save-map.active {
+  right: 250px;
 }
