@@ -17,6 +17,7 @@ body {
   font-family: "Roboto", "Ubuntu", sans-serif;
   line-height: 1.6;
   margin: auto;
+  max-height: 100vh;
 }
 
 ul {
@@ -26,6 +27,7 @@ ul {
 a {
   cursor: pointer;
   text-decoration: none;
+  border-bottom: none;
   color: $dark-color;
   &:hover {
     color: $secondary-color;
@@ -83,11 +85,29 @@ p {
       align-items: center;
       #searchBox {
         height: 2rem;
-        border-radius: 5px;
+        border-radius: 25px;
         padding: 0 0.5rem;
+        width: 12rem;
 
         &:focus {
           outline: none;
+        }
+      }
+      .heart {
+        height: 40px;
+        width: 60px;
+        padding-right: 1rem;
+        background: url("../icons/heart.png") no-repeat;
+        background-size: 40px;
+
+        &:hover {
+          height: 45px;
+          cursor: pointer;
+          border-bottom: none;
+        }
+        &.saved {
+          background: url("../icons/heart-full.png") no-repeat;
+          background-size: 40px;
         }
       }
       .toggle {
@@ -121,6 +141,12 @@ p {
     height: 100%;
     z-index: 2;
   }
+  .leaflet-control {
+    cursor: pointer;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 .showcase.active {
   right: 250px;
@@ -140,16 +166,22 @@ p {
 
   ul {
     position: relative;
-    li {
-      .title {
-        padding: 0.5rem 0;
+
+    .title {
+      padding: 0.5rem 0;
+      .list {
+        h3 {
+          font-size: 1.1rem;
+          padding-left: 0.5rem;
+        }
       }
-      a {
-        font-size: 1.8rem;
-      }
-      h3 {
-        font-size: 1.1rem;
-        padding-left: 0.5rem;
+    }
+    a {
+      font-size: 1.8rem;
+    }
+    ul {
+      &.closed {
+        display: none;
       }
     }
   }

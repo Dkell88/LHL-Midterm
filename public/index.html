@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- LINKS -->
-    <link rel="stylesheet" href="./styles/layout.css" />
-    <link rel="stylesheet" href="./styles/main.css" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
       integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
       crossorigin=""
     />
+    <link rel="stylesheet" href="./styles/layout.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
     <!-- External Scripts -->
     <script
       src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
@@ -58,6 +58,7 @@
       <header id="header" class="flex">
         <h1>DR. G Maps</h1>
         <div class="nav">
+          <div class="heart"></div>
           <input type="text" id="searchBox" placeholder="Search" />
           <div class="toggle"></div>
         </div>
@@ -70,17 +71,14 @@
       <ul>
         <!-- Favourites list -->
         <li class="title">
-          <ul>
-            <a href="#" class="list">Favourites</a>
-            <section class="favs"></section>
-          </ul>
+          <a href="#" class="favourites">Favourites</a>
+          <ul class="favs list closed"></ul>
         </li>
         <li class="title">
-          <ul>
-            <a href="#" class="list">Contributions</a>
-            <section class="contri"></section>
-          </ul>
+          <a href="#" class="contributions open">Contributions</a>
+          <ul class="contri list cloed"></ul>
         </li>
+        <li class="title"><a href="#">Create New Map</a></li>
         <li class="title"><a href="#">Account Settings</a></li>
         <li class="title"><a href="#">Logout</a></li>
       </ul>

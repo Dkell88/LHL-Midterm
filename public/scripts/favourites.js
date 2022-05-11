@@ -1,6 +1,8 @@
+//heart function
+
 //favourites
 const createFavElement = (data) => {
-  const $fav = `<li class="show-map">
+  const $fav = `<li class="show-map ">
   <a><h3>${data.title}</h3></a>
   </li>`;
   return $fav;
@@ -49,7 +51,7 @@ const renderContri = function (data) {
 
 3. Clicking maps points
 4. Manipulating points
-5. other routes => cotributions, account settings
+5. other routes => account settings
 */
 
 const loadFav = (id) => {
@@ -58,19 +60,20 @@ const loadFav = (id) => {
     url: `/users/${id}`,
     success: (response) => {
       // { users }
-      // renderFav(response);
+      renderFav(response);
+    },
+  });
+};
+
+const loadContri = (id) => {
+  $.ajax({
+    type: "GET",
+    url: `/users/${id}`,
+    success: (response) => {
+      // { users }
       renderContri(response);
     },
   });
-  // $.ajax({
-  //   type: "GET",
-  //   url: `/users/contri/${id}`,
-  //   success: (response) => {
-  //     // { users }
-  //     console.log(response);
-  //     renderContri(response);
-  //   },
-  // });
 };
 
 $(() => {
