@@ -18,10 +18,13 @@ const renderContriMap = (mapId) => {
   $.ajax(`/maps/${mapId}`, { method: "GET" }).then((data) => {
     map.panTo(new L.LatLng(data.latitude, data.longitude));
   });
-
-  // $.ajax(`/maps/points/${mapId}`, { method: "GET" }).then((data) => {
-  //   const testMarker = L.marker([data.latitude, data.longitude]).addTo(map);
-  // });
+  $.ajax(`points/maps/${mapId}`, { method: "GET" }).then((data) => {
+    if (data && mapId) {
+      for (const point of data) {
+        L.marker([point.latitude, point.longitude]).addTo(map);
+      }
+    }
+  });
 };
 
 //contirbutions
@@ -60,21 +63,22 @@ const loadFav = (id) => {
     url: `/users/${id}`,
     success: (response) => {
       // { users }
-      renderFav(response);
-    },
-  });
-};
-
-const loadContri = (id) => {
-  $.ajax({
-    type: "GET",
-    url: `/users/${id}`,
-    success: (response) => {
-      // { users }
+      // renderFav(response);
       renderContri(response);
     },
   });
 };
+
+// const loadContri = (id) => {
+//   $.ajax({
+//     type: "GET",
+//     url: `/users/${id}`,
+//     success: (response) => {
+//       // { users }
+//       renderContri(response);
+//     },
+//   });
+// };
 
 $(() => {
   // load jquery before you do this

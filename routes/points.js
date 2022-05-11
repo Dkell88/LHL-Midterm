@@ -36,7 +36,7 @@ const pointRouter = (db) => {
 
     db.query(query, [queryParams])
       .then((point) => {
-        res.json(point.rows[0]);
+        res.json(point.rows);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
