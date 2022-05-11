@@ -15,17 +15,19 @@ const mapsRouter = (db) => {
   });
 
   router.post("/", (req, res) => {
-    console.log(req.body);
+    console.log("reqqqing", req.body);
     db.query(
       `
       INSERT INTO maps (user_id,title,city,country,created_at,latitude, longitude )
-      VALUES (1,$1,'winnipeg','canada',NOW(),$2,$3);
+      VALUES (10,$1,'winnipeg','canada',NOW(),$2,$3);
       `,
       [req.body.title, req.body.lat, req.body.lng]
     )
       .then((data) => {
+        console.log("maps router", data);
         const maps = data.rows[0];
-        res.json(maps);
+        // res.json(maps);
+        res.status(200).end();
       })
       .catch((err) => {
         console.log("catch block");

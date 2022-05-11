@@ -36,11 +36,18 @@ const createContribution = (data) => {
   return $fav;
 };
 
+const addMap = (map) => {
+  $(".contri").prepend(createContribution(map));
+};
+
 const renderContri = function (data) {
-  for (const contri of data.users) {
-    // console.log(contri);
-    $(".contri").prepend(createContribution(contri));
-  }
+  $(".contri").empty();
+  data.maps.forEach(addMap);
+  // for (const contri of data.maps) {
+  // console.log(contri);
+  // $(".contri").prepend(createContribution(contri));
+
+  // }
 };
 
 /*
@@ -64,6 +71,7 @@ const loadFav = (id) => {
     success: (response) => {
       // { users }
       // renderFav(response);
+      console.log("fron users/id", response);
       renderContri(response);
     },
   });
@@ -83,7 +91,7 @@ const loadFav = (id) => {
 $(() => {
   // load jquery before you do this
   // get the user data using the cookies = userId = 1
-  const userId = 1; // change it cookies after login impl
+  const userId = 10; // change it cookies after login impl
   // if the user is logged then load his fav's
   if (userId) {
     loadFav(userId);
