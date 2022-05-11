@@ -1,31 +1,46 @@
 let POINT_ID = 0;
+const addGoogleSearch = (myMap) => {
+  const input = document.getElementById("searchBox");
+  const searchBox = new google.maps.places.SearchBox(input);
+
+  searchBox.addListener("places_changed", () => {
+    const places = searchBox.getPlaces();
+
+    //we can also use .panTo
+    myMap.panTo(
+      [places[0].geometry.location.lat(), places[0].geometry.location.lng()],
+      8
+    );
+  });
+};
+
+const loadMap = function () {
+  const map = L.map("map", {
+    doubleClickZoom: false,
+    bubblingMouseEvents: true,
+    zoomControl: false,
+  }).setView([49.262838, -122.781071], 16);
+
+  L.control
+    .scale({
+      metric: true,
+      imperial: false,
+      position: "bottomright",
+    })
+    .addTo(map);
+  L.control
+    .zoom({
+      position: "bottomright",
+    })
+    .addTo(map);
+
+  addGoogleSearch(map);
+  return map;
+};
+
+const map = loadMap();
 
 $(() => {
-  const loadMap = function () {
-    const map = L.map("map", {
-      doubleClickZoom: false,
-      bubblingMouseEvents: true,
-      zoomControl: false,
-    }).setView([49.262838, -122.781071], 16);
-
-    L.control
-      .scale({
-        metric: true,
-        imperial: false,
-        position: "bottomright",
-      })
-      .addTo(map);
-
-    L.control
-      .zoom({
-        position: "bottomright",
-      })
-      .addTo(map);
-
-    addGoogleSearch(map);
-    return map;
-  };
-
   const renderMap = function (map) {
     L.tileLayer(
       "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
@@ -183,7 +198,6 @@ $(() => {
     console.log("this is a mouse up event: ", event);
   };
 
-  const map = loadMap();
   renderMap(map);
   const markerLayerGroup = setupLayerGroup(map);
   const featureGroup = L.featureGroup();
@@ -198,29 +212,3 @@ $(() => {
     console.log("marker layer groups has been clicked", ev);
   });
 });
-
-//////GAGANDEEP APP
-
-const addGoogleSearch = (myMap) => {
-  // const GooglePlacesSearchBox = L.Control.extend({
-  //   onAdd: function () {
-  //     const element = document.createElement("input");
-  //     element.id = "searchBox";
-  //     return element;
-  //   },
-  // });
-  // new GooglePlacesSearchBox().addTo(myMap);
-
-  const input = document.getElementById("searchBox");
-  const searchBox = new google.maps.places.SearchBox(input);
-
-  searchBox.addListener("places_changed", () => {
-    const places = searchBox.getPlaces();
-
-    //we can also use .panTo
-    myMap.panTo(
-      [places[0].geometry.location.lat(), places[0].geometry.location.lng()],
-      8
-    );
-  });
-};
