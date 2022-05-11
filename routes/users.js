@@ -14,8 +14,8 @@ const userRouter = (db) => {
       `
       SELECT maps.*
       FROM maps
-      JOIN users ON users.id = user_id
-      AND users.id = 1;`
+      WHERE user_id = ${req.params.id};`
+      // JOIN users ON users.id = user_id
       // `
       // SELECT users.name,
       // favourites.map_id,
@@ -29,8 +29,14 @@ const userRouter = (db) => {
       // `
     )
       .then((data) => {
+<<<<<<< HEAD
         const users = data.rows;
         res.json({ users });
+=======
+        const maps = data.rows;
+        // console.log("users", users);
+        res.json({ maps });
+>>>>>>> fix/contributions-not-adding
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });

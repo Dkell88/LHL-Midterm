@@ -36,49 +36,25 @@ const createContribution = (data) => {
   return $fav;
 };
 
-const renderContri = function (data) {
-  for (const contri of data.users) {
-    // console.log(contri);
-    $(".contri").prepend(createContribution(contri));
-  }
+const addMap = (map) => {
+  $(".contri").prepend(createContribution(map));
 };
 
-/*
-1. login screen => store data as cookies or local storage
-
-2. Home Screen / Favourites screen =>
-    a. get the user data
-    b. load the favourite maps of the user
-    c. render the maps
-
-
-3. Clicking maps points
-4. Manipulating points
-5. other routes => account settings
-*/
+const renderContri = function (data) {
+  $(".contri").empty();
+  data.maps.forEach(addMap);
+};
 
 const loadFav = (id) => {
   $.ajax({
     type: "GET",
     url: `/users/${id}`,
     success: (response) => {
-      // { users }
-      // renderFav(response);
+      console.log("fron users/id", response);
       renderContri(response);
     },
   });
 };
-
-// const loadContri = (id) => {
-//   $.ajax({
-//     type: "GET",
-//     url: `/users/${id}`,
-//     success: (response) => {
-//       // { users }
-//       renderContri(response);
-//     },
-//   });
-// };
 
 $(() => {
   // load jquery before you do this
