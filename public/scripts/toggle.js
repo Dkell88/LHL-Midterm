@@ -8,10 +8,12 @@ const toggleList = (className) => {
 $(() => {
   const menuToggle = document.querySelector(".toggle");
   const showcase = document.querySelector(".showcase");
+  const savemap = document.querySelector("#save-map");
 
   menuToggle.addEventListener("click", () => {
     menuToggle.classList.toggle("active");
     showcase.classList.toggle("active");
+    savemap.classList.toggle("active");
   });
 
   const heart = document.querySelector(".heart");

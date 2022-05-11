@@ -149,7 +149,9 @@ p {
     }
   }
 }
-.showcase.active {
+
+.showcase.active,
+#save-map.active {
   right: 250px;
 }
 
