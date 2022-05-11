@@ -17,24 +17,24 @@ const renderContriMap = (mapId) => {
     map.panTo(new L.LatLng(data.latitude, data.longitude));
   });
 
-  $.ajax(`/maps/points/${mapId}`, { method: "GET" }).then((data) => {
-    const testMarker = L.marker([data.latitude, data.longitude]).addTo(map);
-  });
+  // $.ajax(`/maps/points/${mapId}`, { method: "GET" }).then((data) => {
+  //   const testMarker = L.marker([data.latitude, data.longitude]).addTo(map);
+  // });
 };
 
 //contirbutions
 const createContribution = (data) => {
-  console.log("contribution data", data.map_id);
   const $fav = `
   <li class="show-map">
-  <a onclick= renderContriMap(${data.map_id})><h3>${data.title}</h3></a>
+  <a onclick= renderContriMap(${data.id})><h3>${data.title}</h3></a>
   </li>`;
   return $fav;
 };
 
 const renderContri = function (data) {
-  for (const fav of data.users) {
-    $(".contri").prepend(createContribution(fav));
+  for (const contri of data.users) {
+    // console.log(contri);
+    $(".contri").prepend(createContribution(contri));
   }
 };
 
@@ -58,7 +58,7 @@ const loadFav = (id) => {
     url: `/users/${id}`,
     success: (response) => {
       // { users }
-      renderFav(response);
+      // renderFav(response);
       renderContri(response);
     },
   });

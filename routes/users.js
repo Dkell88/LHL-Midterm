@@ -12,15 +12,21 @@ const userRouter = (db) => {
   router.get("/:id", (req, res) => {
     db.query(
       `
-      SELECT users.name,
-      favourites.map_id,
-      favourites.user_id,
-      maps.title
-      FROM users
-      JOIN favourites ON users.id = favourites.user_id
-      JOIN maps ON maps.id = favourites.map_id
+      SELECT maps.*
+      FROM maps
+      JOIN users ON users.id = user_id
+      AND users.id = 1;`
+      // `
+      // SELECT users.name,
+      // favourites.map_id,
+      // favourites.user_id,
+      // maps.title
+      // FROM users
+      // JOIN favourites ON users.id = favourites.user_id
+      // JOIN maps ON maps.id = favourites.map_id
 
-      WHERE favourites.user_id = 1;`
+      // WHERE favourites.user_id = 1;
+      // `
     )
       .then((data) => {
         const users = data.rows;
