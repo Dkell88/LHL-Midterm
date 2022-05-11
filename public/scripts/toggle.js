@@ -1,3 +1,10 @@
+const toggleList = (className) => {
+  const mapList = document.querySelector(className);
+  mapList.addEventListener("click", () => {
+    const list = document.querySelector(`${className} + .list`);
+    list.classList.toggle("closed");
+  });
+};
 $(() => {
   const menuToggle = document.querySelector(".toggle");
   const showcase = document.querySelector(".showcase");
@@ -7,8 +14,6 @@ $(() => {
     showcase.classList.toggle("active");
   });
 
-  const dropDown = document.querySelector(".favourites");
-  dropDown.addEventListener("click", () => {
-    loadFav(1);
-  });
+  toggleList(".favourites");
+  toggleList(".contributions");
 });

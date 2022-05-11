@@ -16,6 +16,7 @@ body {
   font-family: "Roboto", "Ubuntu", sans-serif;
   line-height: 1.6;
   margin: auto;
+  max-height: 100vh;
 }
 
 ul {
@@ -84,6 +85,7 @@ p {
         height: 2rem;
         border-radius: 5px;
         padding: 0 0.5rem;
+        width: 12rem;
 
         &:focus {
           outline: none;
@@ -139,16 +141,22 @@ p {
 
   ul {
     position: relative;
-    li {
-      .title {
-        padding: 0.5rem 0;
+
+    .title {
+      padding: 0.5rem 0;
+      .list {
+        h3 {
+          font-size: 1.1rem;
+          padding-left: 0.5rem;
+        }
       }
-      a {
-        font-size: 1.8rem;
-      }
-      h3 {
-        font-size: 1.1rem;
-        padding-left: 0.5rem;
+    }
+    a {
+      font-size: 1.8rem;
+    }
+    ul {
+      &.closed {
+        display: none;
       }
     }
   }
