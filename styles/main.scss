@@ -140,6 +140,12 @@ p {
     height: 100%;
     z-index: 2;
   }
+  .leaflet-control {
+    cursor: pointer;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 .showcase.active {
   right: 250px;
