@@ -29,14 +29,8 @@ const userRouter = (db) => {
       // `
     )
       .then((data) => {
-<<<<<<< HEAD
         const users = data.rows;
         res.json({ users });
-=======
-        const maps = data.rows;
-        // console.log("users", users);
-        res.json({ maps });
->>>>>>> fix/contributions-not-adding
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
