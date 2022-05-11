@@ -1,4 +1,5 @@
 let POINT_ID = 0;
+
 const addGoogleSearch = (myMap) => {
   const input = document.getElementById("searchBox");
   const searchBox = new google.maps.places.SearchBox(input);
@@ -58,6 +59,24 @@ const loadMap = function () {
 
 const map = loadMap();
 
+function createPhotoMarker(place) {
+  var photos = place.photos;
+  if (!photos) {
+    console.log("returning")
+    return;
+  }
+
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location,
+    title: place.name,
+    icon: photos[0].getUrl({maxWidth: 35, maxHeight: 35})
+  });
+  console.log(marker)
+}
+
+
+
 $(() => {
   const renderMap = function (map) {
     L.tileLayer(
@@ -101,7 +120,7 @@ $(() => {
   function onMapClick(event) {
   
     let point = {
-      mapId: 41, //-------------NEED TO ADD SESSIONS
+      mapId: 41, //-------------NEED TO ADD COOKIE
       leafletId: -999,
       title: "",
       description: "",
@@ -109,6 +128,63 @@ $(() => {
       latitude: event.latlng.lat,
       longitude: event.latlng.lng
     }
+
+
+//------------------------------------------------------------------------------------------------------------
+  const geocoder = new google.maps.Geocoder;
+
+  latitude = event.latlng.lat;               
+  longitude = event.latlng.lng;
+  const latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
+
+  placeIDToUse = ""; 
+
+  geocoder.geocode({'location': latlng}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      if (results[1]) {
+        console.log(results[1].place_id);
+        placeIDToUse = results[1].place_id;
+      } else {
+        console.log('No results found');
+      }
+    } else {
+            console.log('Geocoder failed due to: ' + status);
+          }
+    }).then( () =>{
+ 
+        const request = {
+        placeId: placeIDToUse,
+        fields: ["name", "formatted_address", "place_id", "geometry", "photos"],
+      };
+      
+      console.log("Line 160")
+      const Gmap = new google.maps.Map(document.getElementById("Gmap")) //
+      console.log("Line 162")
+      service = new google.maps.places.PlacesService(Gmap);
+      
+      console.log("Line 165")
+      service.getDetails(request, callback);
+      
+      console.log("Line 168")
+      function callback(place, status) {
+          console.log("Google callback called")
+          if (status == google.maps.places.PlacesServiceStatus.OK) {
+            console.log("Google callback worked")
+            console.log(place)
+            if (place.photos){
+              console.log("There are photos!!!")
+            } else console.log("Tere are no photos")
+            //createMarker(place);
+          }
+        }
+    })
+      
+      //console.log("This is what googles service returns: " ,service)
+      //createPhotoMarker({lat: point.latitude, lng:point.longitude});
+      
+      
+      //------------------------------------------------------------------------------------------------------------
+
 
 
     let markerPopup = `
@@ -181,7 +257,7 @@ $(() => {
               })
             })
             
-      });
+    });
     
     $('#map').on('click', '.pin-deets-delete', function(event) {
 
@@ -198,7 +274,7 @@ $(() => {
           console.log(e.responseJSON)
       })
 
-    })
+    });
 
     $('#map').on('click', '.pin-deets-edit', function(event) {
 
@@ -220,7 +296,7 @@ $(() => {
       layerToAppend = getPopupID(); 
       layerToAppend.setPopupContent(markerPopupAppend);
 
-    })
+    });
 
     $('#map').on('click', '.pin-deets-confirm', function(event) {
       event.preventDefault();
@@ -256,7 +332,8 @@ $(() => {
           })
       })
 
-    })
+    });
+
     $('#map').on('click', '.pin-deets-cancel', function(event) {
 
       event.preventDefault();
@@ -284,5 +361,8 @@ $(() => {
     const markerLayerGroup = setupLayerGroup(map);
     map.on('click', onMapClick);
     
+  
+
+
 });
 

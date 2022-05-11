@@ -68,7 +68,7 @@ const pointRouter = (db) => {
         VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;`;
     const queryParams = [
-      req.body.mapId,
+      req.cookies.mapID,
       req.body.title,
       req.body.description,
       req.body.imageURL,
@@ -76,6 +76,8 @@ const pointRouter = (db) => {
       req.body.longitude,
       req.body.leafletId,
     ];
+    console.log("Req.cookies: " ,req.cookies);
+    console.log("Req.cookies: " ,req.cookies.mapID);
     db.query(queryString, queryParams)
       .then((pointAdded) => {
         res.send(pointAdded.rows[0]);
