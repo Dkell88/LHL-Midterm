@@ -11,5 +11,23 @@
   button {
     border-radius: 25px;
     height: 2rem;
+    padding: 0 0.5rem;
+  }
+  input {
+    width: 12rem;
+    margin-right: 1rem;
+    &:focus {
+      outline: none;
+    }
+  }
+  button {
+    background-color: $primary-color;
+    cursor: pointer;
+    transition: 0.5s;
+    &:hover {
+      background-color: $grey-color;
+      height: 2.2rem;
+      width: 5.5rem;
+    }
   }
 }
