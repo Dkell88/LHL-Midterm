@@ -14,6 +14,25 @@ const mapsRouter = (db) => {
       });
   });
 
+  router.post("/", (req, res) => {
+    console.log(req.body);
+    db.query(
+      `
+      INSERT INTO maps (user_id,title,city,country,created_at,latitude, longitude )
+      VALUES (1,$1,'winnipeg','canada',NOW(),$2,$3);
+      `,
+      [req.body.title, req.body.lat, req.body.lng]
+    )
+      .then((data) => {
+        const maps = data.rows[0];
+        res.json(maps);
+      })
+      .catch((err) => {
+        console.log("catch block");
+        res.status(500).json({ error: err.message });
+      });
+  });
+
   return router;
 };
 

@@ -35,6 +35,16 @@ const loadMap = function () {
     .addTo(map);
 
   addGoogleSearch(map);
+
+  // Posting new map title,lat,long to server
+  $("#new-map").click(() => {
+    const bounds = map.getBounds();
+    const lat = bounds._northEast.lat;
+    const lng = bounds._northEast.lng;
+    const title = $("#new-map-title").val();
+    $.ajax(`/maps`, { method: "POST", data: { lat, lng, title } });
+  });
+
   return map;
 };
 
