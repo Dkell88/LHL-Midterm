@@ -55,7 +55,7 @@ const loadMap = function () {
       data: { lat, lng, title },
       success: (data) => {
         console.log("success");
-        loadFav(10); //remove this!!!
+        loadFav(1); //remove this!!!
       },
     });
   });

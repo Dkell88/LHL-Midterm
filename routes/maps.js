@@ -19,7 +19,7 @@ const mapsRouter = (db) => {
     db.query(
       `
       INSERT INTO maps (user_id,title,city,country,created_at,latitude, longitude )
-      VALUES (10,$1,'winnipeg','canada',NOW(),$2,$3);
+      VALUES (1,$1,'winnipeg','canada',NOW(),$2,$3);
       `,
       [req.body.title, req.body.lat, req.body.lng]
     )
