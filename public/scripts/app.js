@@ -1,17 +1,3 @@
-const getPhoto = function () {
-
-  fetch("https://api.pexels.com/v1/search/?page=2&per_page=1&query=building",{
-    headers: {
-      Authorization: "563492ad6f917000010000018f35a9b132484d89a04540a4d16dbc7d",
-    }
-  })
-    .then(resp => {
-      return resp.json()
-    })
-    .then(data => {
-      return (data.photos)
-    })
-};
 
 $(() => {
 
@@ -75,7 +61,8 @@ $(() => {
       latitude: event.latlng.lat,
       longitude: event.latlng.lng
     }
- 
+
+
     let markerPopup = `
       <div >
         <form class="pointForm">
@@ -113,51 +100,45 @@ $(() => {
     };
     
    
-    $('#map').on('submit', '.pointForm', function(event) {
-      event.preventDefault();
-
-      const kids = $(this).has('textarea');
+  $('#map').on('submit', '.pointForm', function(event) {
+    event.preventDefault();  
+    
+      const photoURL = 'https://source.unsplash.com/random'
+      console.log(photoURL);
       
-      getPhoto().then((photo) =>{
-        const photoJSON = photo
-        
-        console.log(photoJSON);
-        const photoURL = photoJSON[0].src.tiny
-        console.log(photoURL);
-  
+      const kids = $(this).has('textarea');
         const pointToEdit = {
           title: $(kids[0][0]).val(),
           description: $(kids[0][1]).val(),
           imageURL: $(kids[0][2]).val(),
           leafletId: -999
         };
-  
+        
         let markerPopupDetails = `
           <section class = "pin-popus">
-            <span>${pointToEdit.title}</span><br>
-            <span>${pointToEdit.description}</span><br>
-            <img src="${pointToEdit.imageURL}">
+          <span>${pointToEdit.title}</span><br>
+          <span>${pointToEdit.description}</span><br>
+            <img src="${photoURL}">
             <div>
-              <button class="pin-deets-edit">Edit</button>
-              <button class="pin-deets-delete">Delete</button>
+            <button class="pin-deets-edit">Edit</button>
+            <button class="pin-deets-delete">Delete</button>
             </div>
-          </section>`
-  
-  
-        layerToEdit = getPopupID();
-        pointIdToEdit = layerToEdit.options.title;
-  
-        $.get(`points/${pointIdToEdit}`)
-        .then(point => {
-          $.post(`/points/${point.id}/edit`, pointToEdit)
+            </section>`
+            
+            layerToEdit = getPopupID();
+            pointIdToEdit = layerToEdit.options.title;
+            
+            $.get(`points/${pointIdToEdit}`)
             .then(point => {
-              layerToEdit.setPopupContent(markerPopupDetails);
+              $.post(`/points/${point.id}/edit`, pointToEdit)
+              .then(point => {
+                layerToEdit.setPopupContent(markerPopupDetails);
+              })
             })
-        })
-
+            
       });
 
-    });
+   // });
     
     $('#map').on('click', '.pin-deets-delete', function(event) {
 
