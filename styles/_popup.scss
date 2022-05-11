@@ -1,0 +1,25 @@
+
+
+.leaflet-popup-content-wrapper {
+   font-family: "Roboto", "Ubuntu", sans-serif;
+  
+  font-size: 1rem;
+
+}
+.leaflet-popup-content-wrapper textarea {
+  // font-family: "Roboto", "Ubuntu", sans-serif;
+  
+  resize: none; 
+  border-bottom-width: thick;
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+#pointfrom {
+  padding: 5px;
+}
+
+.leaflet-popup-content-wrapper img {
+  align-content: center;
+}

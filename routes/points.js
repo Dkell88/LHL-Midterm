@@ -97,6 +97,25 @@ const pointRouter = (db) => {
             .json({ error: err.message });
         });
     });
+    
+    router.post("/:id/delete", (req, res) => {
+      let queryString = `
+      DELETE FROM points
+      WHERE id = $1
+      RETURNING *`
+      const queryParams = [req.params.id];
+      db.query(queryString,queryParams)
+        .then(pointEdited => {
+          console.log("The point editted by the POST points/:id/edit is: ", pointEdited.rows[0]);
+          res.send(pointEdited.rows[0]);
+        })
+        .catch(err => {
+          console.log("YO our shit broke!!")
+          res
+            .status(500)
+            .json({ error: err.message });
+        });
+    });
 
 
 
