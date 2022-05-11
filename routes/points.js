@@ -68,7 +68,7 @@ const pointRouter = (db) => {
         VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;`;
     const queryParams = [
-      req.body.mapId,
+      req.cookies.mapID,
       req.body.title,
       req.body.description,
       req.body.imageURL,

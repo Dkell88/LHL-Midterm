@@ -7,6 +7,7 @@ const mapsRouter = (db) => {
     db.query(`SELECT * FROM maps WHERE id = ${req.params.mapID};`)
       .then((data) => {
         const maps = data.rows[0];
+        res.cookie("mapID", req.params.mapID);
         res.json(maps);
       })
       .catch((err) => {
