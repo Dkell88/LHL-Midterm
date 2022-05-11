@@ -108,27 +108,41 @@ const pointRouter = (db) => {
       UPDATE points
       SET title = $2, description = $3, image_url = $4, leaflet_id = $5
       WHERE id = $1
-      RETURNING *`;
-    const queryParams = [
-      req.params.id,
-      req.body.title,
-      req.body.description,
-      req.body.imageURL,
-      req.body.leafletId,
-    ];
-    db.query(queryString, queryParams)
-      .then((pointEdited) => {
-        console.log(
-          "The point editted by the POST points/:id/edit is: ",
-          pointEdited.rows[0]
-        );
-        res.send(pointEdited.rows[0]);
-      })
-      .catch((err) => {
-        console.log("YO our shit broke!!");
-        res.status(500).json({ error: err.message });
-      });
-  });
+      RETURNING *`
+      const queryParams = [req.params.id, req.body.title, req.body.description, req.body.imageURL, req.body.leafletId];
+      db.query(queryString,queryParams)
+        .then(pointEdited => {
+          console.log("The point editted by the POST points/:id/edit is: ", pointEdited.rows[0]);
+          res.send(pointEdited.rows[0]);
+        })
+        .catch(err => {
+          console.log("YO our shit broke!!")
+          res
+            .status(500)
+            .json({ error: err.message });
+        });
+    });
+    
+    router.post("/:id/delete", (req, res) => {
+      let queryString = `
+      DELETE FROM points
+      WHERE id = $1
+      RETURNING *`
+      const queryParams = [req.params.id];
+      db.query(queryString,queryParams)
+        .then(pointEdited => {
+          console.log("The point editted by the POST points/:id/edit is: ", pointEdited.rows[0]);
+          res.send(pointEdited.rows[0]);
+        })
+        .catch(err => {
+          console.log("YO our shit broke!!")
+          res
+            .status(500)
+            .json({ error: err.message });
+        });
+    });
+
+
 
   return router;
 };
