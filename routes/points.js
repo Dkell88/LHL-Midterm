@@ -40,13 +40,8 @@ const pointRouter = (db) => {
   router.get("/:id", (req, res) => {
     let query = `SELECT * FROM points WHERE id = $1`;
     let queryParams = [req.params.id];
-    console.log(
-      "The query parameters for the GET /points/:id is: ",
-      queryParams
-    );
     db.query(query, queryParams)
       .then((point) => {
-        console.log("Point returned by /:id query is: ", point.rows[0]);
         res.send(point.rows[0]);
       })
       .catch((err) => {
@@ -57,16 +52,9 @@ const pointRouter = (db) => {
   router.get("/leaflet/:leafletId", (req, res) => {
     let query = `SELECT * FROM points WHERE leaflet_id = $1`;
     let queryParams = [req.params.leafletId];
-    console.log(
-      "The query parameters for the GET /points/leaflit/:leafletId is: ",
-      queryParams
-    );
+
     db.query(query, queryParams)
       .then((point) => {
-        console.log(
-          "Point returned by /points/leaflit/:leafletId query is: ",
-          point.rows[0]
-        );
         res.send(point.rows[0]);
       })
       .catch((err) => {
@@ -106,11 +94,9 @@ const pointRouter = (db) => {
       const queryParams = [req.params.id, req.body.title, req.body.description, req.body.imageURL, req.body.leafletId];
       db.query(queryString,queryParams)
         .then(pointEdited => {
-          console.log("The point editted by the POST points/:id/edit is: ", pointEdited.rows[0]);
           res.send(pointEdited.rows[0]);
         })
         .catch(err => {
-          console.log("YO our shit broke!!")
           res
             .status(500)
             .json({ error: err.message });
@@ -125,18 +111,14 @@ const pointRouter = (db) => {
       const queryParams = [req.params.id];
       db.query(queryString,queryParams)
         .then(pointEdited => {
-          console.log("The point editted by the POST points/:id/edit is: ", pointEdited.rows[0]);
           res.send(pointEdited.rows[0]);
         })
         .catch(err => {
-          console.log("YO our shit broke!!")
           res
             .status(500)
             .json({ error: err.message });
         });
     });
-
-
 
   return router;
 };
