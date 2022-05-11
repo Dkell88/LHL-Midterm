@@ -1,3 +1,5 @@
+//heart function
+
 //favourites
 const createFavElement = (data) => {
   const $fav = `<li class="show-map ">

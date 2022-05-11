@@ -26,6 +26,7 @@ ul {
 a {
   cursor: pointer;
   text-decoration: none;
+  border-bottom: none;
   color: $dark-color;
   &:hover {
     color: $secondary-color;
@@ -89,6 +90,23 @@ p {
 
         &:focus {
           outline: none;
+        }
+      }
+      .heart {
+        height: 40px;
+        width: 60px;
+        padding-right: 1rem;
+        background: url("../icons/heart.png") no-repeat;
+        background-size: 40px;
+
+        &:hover {
+          height: 45px;
+          cursor: pointer;
+          border-bottom: none;
+        }
+        &.saved {
+          background: url("../icons/heart-full.png") no-repeat;
+          background-size: 40px;
         }
       }
       .toggle {
