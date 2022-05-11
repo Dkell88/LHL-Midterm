@@ -54,11 +54,13 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users");
 const mapsRoutes = require("./routes/maps");
 const pointsRoutes = require("./routes/points");
+const cookiesRoutes = require("./routes/cookies");
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db));
 app.use("/points", pointsRoutes(db));
+app.use("/cookies", cookiesRoutes());
 
 // Note: mount other resources here, using the same pattern above
 

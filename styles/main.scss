@@ -76,9 +76,11 @@ p {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     z-index: 1000;
-    // background-color: $third-color;
+    background-color: rgba(0, 0, 0, 0.1);
+    // border-bottom: 2px #333 solid;
+    backdrop-filter: blur(4px);
 
     .nav {
       display: flex;
