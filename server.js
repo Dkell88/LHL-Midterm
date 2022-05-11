@@ -38,9 +38,11 @@ app.use(
 
 app.use(express.static("public"));
 
-// app.post('/render', (req,res) => {
-//   console.log(req)
-// });
+app.get("/home", (req,res) => {
+  //ranNum = Number(Math.random().toString(10).substring(2,6));
+  res.cookie("mapID", 1);
+  res.send();
+});
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own

@@ -15,6 +15,7 @@ const pointRouter = (db) => {
         res.json({ points });
       })
       .catch((err) => {
+        console.log(err.message)
         res.status(500).json({ error: err.message });
       });
   });
@@ -81,6 +82,7 @@ const pointRouter = (db) => {
         res.send(pointAdded.rows[0]);
       })
       .catch((err) => {
+        console.log(err.message)
         res.status(500).json({ error: err.message });
       });
   });

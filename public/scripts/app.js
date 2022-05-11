@@ -20,6 +20,7 @@ const getCurrentUserLocation = (map) => {
     const longitude = position.coords.longitude;
     map.setView([latitude, longitude], 15);
   });
+  $.get('/home');
 };
 
 const loadMap = function () {
@@ -101,8 +102,8 @@ $(() => {
   function onMapClick(event) {
   
     let point = {
-      mapId: 41, //-------------NEED TO ADD SESSIONS
-      leafletId: -999,
+      mapId: -999, //Set by cookies when POST call is make
+      leafletId: -999, //Set after POST is made and marker is creted.
       title: "",
       description: "",
       imageURL: "",
