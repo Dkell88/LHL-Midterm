@@ -42,7 +42,7 @@ const addMap = (map) => {
 
 const renderContri = function (data) {
   $(".contri").empty();
-  data.maps.forEach(addMap);
+  data.users.forEach(addMap);
 };
 
 const loadFav = (id) => {
