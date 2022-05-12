@@ -15,6 +15,14 @@ const addGoogleSearch = (myMap) => {
   });
 };
 
+const setupLayerGroup = function (map) {
+  const markerLayerGroup = L.layerGroup().addTo(map);
+  const overlay = { markers: markerLayerGroup };
+  const options = { position: "bottomleft" };
+  L.control.layers(null, overlay, options).addTo(map);
+
+  return markerLayerGroup;
+};
 const getCurrentUserLocation = (map) => {
   navigator.geolocation.getCurrentPosition((position) => {
     const latitude = position.coords.latitude;
@@ -47,6 +55,7 @@ const loadMap = function () {
   addGoogleSearch(map);
   getCurrentUserLocation(map);
   // Posting new map title,lat,long to server
+  $(".heart").css("visibility", "hidden");
   $("#new-map").click(() => {
     const bounds = map.getBounds();
     const lat = bounds._northEast.lat;
@@ -59,8 +68,18 @@ const loadMap = function () {
         console.log("data", data);
         loadFav(1); //remove this!!!
         $(".map-title").text(data.title).show();
+        $(".heart").css("visibility", "visible");
         $("#save-map").hide();
+        $("#new-map-title").val("");
       },
+    });
+    $("#create").click(() => {
+      markerLayerGroup.clearLayers();
+      getCurrentUserLocation(map);
+      $(".map-title").hide();
+      $(".heart").css("visibility", "hidden");
+
+      $("#save-map").show();
     });
   });
 
@@ -68,6 +87,7 @@ const loadMap = function () {
 };
 
 const map = loadMap();
+const markerLayerGroup = setupLayerGroup(map);
 const Gmap = new google.maps.Map(document.getElementById("Gmap"));
 service = new google.maps.places.PlacesService(Gmap);
 
@@ -88,15 +108,6 @@ $(() => {
     ).addTo(map);
 
     //console.log("This is the map object: ", map)
-  };
-
-  const setupLayerGroup = function (map) {
-    const markerLayerGroup = L.layerGroup().addTo(map);
-    const overlay = { markers: markerLayerGroup };
-    const options = { position: "bottomleft" };
-    L.control.layers(null, overlay, options).addTo(map);
-
-    return markerLayerGroup;
   };
 
   const getPopupID = function () {
@@ -343,6 +354,6 @@ $(() => {
   });
 
   renderMap(map);
-  const markerLayerGroup = setupLayerGroup(map);
+
   map.on("click", onMapClick);
 });
