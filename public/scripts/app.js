@@ -64,7 +64,6 @@ const loadMap = function () {
   // Posting new map title,lat,long to server
   $(".heart").css("visibility", "hidden");
 
-
   return map;
 };
 
@@ -172,13 +171,13 @@ $(() => {
 
             let markerPopup = `
                       <div >
-                        <form class="pointForm">
+                        <form class="point-form">
                           <textarea name="title" placeholder="Title of the pin?"></textarea><br>
-                          <textarea name="description" placeholder="Description of the pin?"></textarea><br>
+                          <textarea name="description" placeholder="Description?"></textarea><br>
                           <textarea name="img-url" placeholder="${imagePlaceHolder}"></textarea><br>
-                          <div>
-                            <button class="pin-deets-submit" type="submit">sumbit</button>
-                            <button class="pin-deets-delete">delete</button>
+                          <div class="form-btn" >
+                            <button class="button pin-deets-submit pin-deets" type="submit"><span> Submit </span></button>
+                            <button class="button pin-deets-delete pin-deets"><span> Delete </span></button>
                           </div>
                         </form>
                       </div>`;
@@ -222,10 +221,10 @@ $(() => {
                 <section class = "pin-popus">
                 <span>${pointToEdit.title}</span><br>
                 <span>${pointToEdit.description}</span><br>
-                  <img class = "popup-imgage" src = ${pointToEdit.image_url}>
-                  <div>
-                  <button class="pin-deets-edit">Edit</button>
-                  <button class="pin-deets-delete">Delete</button>
+                  <img class = "popup-image" src = ${pointToEdit.image_url}>
+                  <div class="form-btn">
+                  <button class="button pin-deets pin-deets-edit"><span> Edit </span></button>
+                  <button class="button pin-deets pin-deets-delete"><span> Delete </span></button>
                   </div>
                   </section>`;
         layerToEdit.setPopupContent(markerPopupDetails);
@@ -258,9 +257,9 @@ $(() => {
             <textarea name="title" placeholder="Title of the pin?"></textarea><br>
             <textarea name="description" placeholder="Description of the pin?"></textarea><br>
             <textarea name="img-url" placeholder="Image url"></textarea><br>
-            <div>
-              <button class="pin-deets-confirm" >confirm</button>
-              <button class="pin-deets-cancel">cancel</button>
+            <div class="form-btn">
+              <button class="button pin-deets pin-deets-confirm" ><span> Confirm </span></button>
+              <button class="button pin-deets pin-deets-cancel"><span> Cancel </span></button>
             </div>
           </form>
         </div>`;
@@ -301,10 +300,10 @@ $(() => {
         <section class = "pin-popus">
           <span>${pointToEdit.title}</span><br>
           <span>${pointToEdit.description}</span><br>
-          <img class = "popup-imgage" src="${pointToEdit.image_url}">
-          <div>
-            <button class="pin-deets-edit">Edit</button>
-            <button class="pin-deets-delete">Delete</button>
+          <img class = "popup-image" src="${pointToEdit.image_url}">
+          <div class="form-btn">
+            <button class="button pin-deets pin-deets-edit"><span> Edit </span></button>
+            <button class="button pin-deets pin-deets-delete"><span> Delete </span></button>
           </div>
         </section>`;
       pointToEdit.leafletId = point.leafletId;
@@ -325,27 +324,27 @@ $(() => {
           <section class = "pin-popus">
             <span>${point.title}</span><br>
             <span>${point.description}</span><br>
-            <img class = "popup-imgage" src="${point.image_url}">
-            <div>
-            <button class="pin-deets-edit">Edit</button>
-              <button class="pin-deets-delete">Delete</button>
+            <img class = "popup-image" src="${point.image_url}">
+            <div class="form-btn">
+            <button class="button pin-deets pin-deets-edit"><span> Edit </span></button>
+              <button class="button pin-deets pin-deets-delete"><span> Delete </span></button>
             </div>
           </section>`;
       layerToRestore.setPopupContent(markerPopupDetails);
     });
   });
 
-  $("#create").on('click', () => {
-    console.log("Create clicked")
+  $("#create").on("click", () => {
+    console.log("Create clicked");
     markerLayerGroup.clearLayers();
     getCurrentUserLocation(map);
-    showTitleAndIcons(false)
+    showTitleAndIcons(false);
     // $(".map-title").hide();
     // $(".heart").css("visibility", "hidden");
     // $("#save-map").show();
   });
 
-  $("#new-map").on('click', () => {
+  $("#new-map").on("click", () => {
     const bounds = map.getBounds();
     const lat = bounds._northEast.lat;
     const lng = bounds._northEast.lng;
@@ -356,14 +355,13 @@ $(() => {
       success: (data) => {
         console.log("data", data);
         loadContri(1); //remove this!!!
-        showTitleAndIcons(true, data.title)
+        showTitleAndIcons(true, data.title);
         // $(".map-title").text(data.title).show();
         // $(".heart").css("visibility", "visible");
         // $("#save-map").hide();
         // $("#new-map-title").val("");
       },
     });
-
   });
   renderMap(map);
 

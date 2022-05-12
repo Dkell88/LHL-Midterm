@@ -1,29 +1,32 @@
-
-
 .leaflet-popup-content-wrapper {
-   font-family: "Roboto", "Ubuntu", sans-serif;
-  
+  font-family: "Roboto", "Ubuntu", sans-serif;
   font-size: 1rem;
 
+  .point-form {
+    padding: 5px;
+
+    .form-btn {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 1rem;
+      .pin-deets {
+        padding: 0.5rem 0.7rem;
+      }
+    }
+  }
 }
+
 .leaflet-popup-content-wrapper textarea {
   // font-family: "Roboto", "Ubuntu", sans-serif;
-  
-  resize: none; 
-  border-bottom-width: thick;
-  border-top-width: 0;
-  border-left-width: 0;
-  border-right-width: 0;
-}
 
-#pointfrom {
-  padding: 5px;
+  resize: none;
+  border: none;
+  border-bottom: 4px $grey-color solid;
 }
-
 .leaflet-popup-content-wrapper img {
   align-content: center;
 }
 
-.popup-imgage {
+.popup-image {
   max-width: 200px;
 }
