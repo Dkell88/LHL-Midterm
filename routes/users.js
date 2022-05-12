@@ -37,6 +37,7 @@ const userRouter = () => {
 
   router.post("/fav", (req, res) => {
     userQueries.postUserFav(1, req.cookies.mapID) //Change 1 to req.cookies.userId if we use user info
+    .then(()=>{res.send("")})
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });

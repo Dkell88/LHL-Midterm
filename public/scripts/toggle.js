@@ -16,14 +16,6 @@ $(() => {
     savemap.classList.toggle("active");
   });
 
-  const heart = document.querySelector(".heart");
-
-  heart.addEventListener("click", () => {
-    $.post("/users/fav");
-    heart.classList.toggle("saved");
-    loadFav(1);
-  });
-
   toggleList(".favourites");
   toggleList(".contributions");
 });

@@ -1,7 +1,7 @@
 
-const showTitleAndIcons = (command) => {
+const showTitleAndIcons = (command, title) => {
   if(command){
-    $(".map-title").text(MapToLoad.title).show();
+    $(".map-title").text(title).show();
     $(".heart").css("visibility", "visible");
     $("#save-map").hide();
     $("#new-map-title").val("");
@@ -32,22 +32,19 @@ const renderContriMap = (mapId) => {
   $.get(`/maps/${mapId}`)
   .then((MapToLoad) => {
     map.panTo(new L.LatLng(MapToLoad.latitude, MapToLoad.longitude));
-    showTitleAndIcons(true)
+    showTitleAndIcons(true, MapToLoad.title)
 
   });
   $.get(`points/maps/${mapId}`)
     .then((points) => {
-      console.log("ajax call", points);
       if (points) {
         for (const point of points) {
-
           //Add points to map !!!!!!!!!!!!!!!!!!!!!!!
           L.marker([point.latitude, point.longitude]).addTo(map);
         }
       }
     });
 };
-
 
 const loadContri = (id) => {
   $.get(`/users/contri/${id}`)
@@ -63,43 +60,21 @@ const loadFav = (id) => {
     });
 };
 
+
+
+
 $(() => {
   const userId = 1;  //Change to $.get('users/') if we are using user login
   if (userId) {
     loadContri(userId);
     loadFav(userId);
   }
+
+  $(".heart").on('click', () => {
+    console.log("heart clicked")
+    $.post("/users/fav");
+    $(".heart").toggleClass("saved");
+    loadFav(1);
+  });
+
 });
-
-
-// const createFavElement = (data) => {
-//   const $fav = `
-//   <li class="show-map ">
-//   <a onclick= renderContriMap(${data.map_id})><h3>${data.title}</h3></a>
-//   </li>`;
-//   return $fav;
-// };
-// //contirbutions
-// const createContribution = (data) => {
-//   const $fav = `
-//   <li class="show-map">
-//   <a onclick= renderContriMap(${data.id})><h3>${data.title}</h3></a>
-//   </li>`;
-//   return $fav;
-// };
-//
-// const renderFav = function (favs) {
-//   $(".favs").empty();
-//   for (const fav of favs) {
-//     $(".favs").prepend(createFavElement(fav));
-//   }
-// };
-// const renderContri = function (data) {
-//   $(".contri").empty();
-//   data.forEach(addMap);
-// };
-
-
-// const addMap = (element) => {
-//   $(".contri").prepend(createContribution(element));
-// };
