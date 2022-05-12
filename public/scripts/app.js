@@ -63,32 +63,7 @@ const loadMap = function () {
   getCurrentUserLocation(map);
   // Posting new map title,lat,long to server
   $(".heart").css("visibility", "hidden");
-  $("#new-map").click(() => {
-    const bounds = map.getBounds();
-    const lat = bounds._northEast.lat;
-    const lng = bounds._northEast.lng;
-    const title = $("#new-map-title").val();
-    $.ajax(`/maps`, {
-      method: "POST",
-      data: { lat, lng, title },
-      success: (data) => {
-        console.log("data", data);
-        loadContri(1); //remove this!!!
-        $(".map-title").text(data.title).show();
-        $(".heart").css("visibility", "visible");
-        $("#save-map").hide();
-        $("#new-map-title").val("");
-      },
-    });
-    $("#create").click(() => {
-      markerLayerGroup.clearLayers();
-      getCurrentUserLocation(map);
-      $(".map-title").hide();
-      $(".heart").css("visibility", "hidden");
 
-      $("#save-map").show();
-    });
-  });
 
   return map;
 };
@@ -360,6 +335,36 @@ $(() => {
     });
   });
 
+  $("#create").on('click', () => {
+    console.log("Create clicked")
+    markerLayerGroup.clearLayers();
+    getCurrentUserLocation(map);
+    showTitleAndIcons(false)
+    // $(".map-title").hide();
+    // $(".heart").css("visibility", "hidden");
+    // $("#save-map").show();
+  });
+
+  $("#new-map").on('click', () => {
+    const bounds = map.getBounds();
+    const lat = bounds._northEast.lat;
+    const lng = bounds._northEast.lng;
+    const title = $("#new-map-title").val();
+    $.ajax(`/maps`, {
+      method: "POST",
+      data: { lat, lng, title },
+      success: (data) => {
+        console.log("data", data);
+        loadContri(1); //remove this!!!
+        showTitleAndIcons(true, data.title)
+        // $(".map-title").text(data.title).show();
+        // $(".heart").css("visibility", "visible");
+        // $("#save-map").hide();
+        // $("#new-map-title").val("");
+      },
+    });
+
+  });
   renderMap(map);
 
   map.on("click", onMapClick);
