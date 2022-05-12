@@ -8,7 +8,6 @@ const pointRouter = (db) => {
   //GET /points/
   router.get("/", (req, res) => {
     let query = `SELECT * FROM points`;
-    console.log(query);
     db.query(query)
       .then((data) => {
         const points = data.rows;
@@ -46,6 +45,7 @@ const pointRouter = (db) => {
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
+        console.log("Get/point/:id error ", err.message)
       });
   });
 
@@ -71,18 +71,18 @@ const pointRouter = (db) => {
       req.cookies.mapID,
       req.body.title,
       req.body.description,
-      req.body.imageURL,
+      req.body.image_url,
       req.body.latitude,
       req.body.longitude,
       req.body.leafletId,
     ];
-    console.log("Req.cookies: " ,req.cookies);
-    console.log("Req.cookies: " ,req.cookies.mapID);
+
     db.query(queryString, queryParams)
       .then((pointAdded) => {
         res.send(pointAdded.rows[0]);
       })
       .catch((err) => {
+        console.log("This the error on the POST /popints/: ", err.message)
         res.status(500).json({ error: err.message });
       });
   });
@@ -93,7 +93,7 @@ const pointRouter = (db) => {
       SET title = $2, description = $3, image_url = $4, leaflet_id = $5
       WHERE id = $1
       RETURNING *`
-      const queryParams = [req.params.id, req.body.title, req.body.description, req.body.imageURL, req.body.leafletId];
+      const queryParams = [req.params.id, req.body.title, req.body.description, req.body.image_url, req.body.leafletId];
       db.query(queryString,queryParams)
         .then(pointEdited => {
           res.send(pointEdited.rows[0]);

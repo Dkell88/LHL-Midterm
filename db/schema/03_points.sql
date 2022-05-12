@@ -6,7 +6,7 @@ CREATE TABLE points (
   map_id INTEGER REFERENCES maps(id) ON DELETE CASCADE,
   title VARCHAR(255) ,
   description VARCHAR(255) ,
-  image_url VARCHAR(255) ,
+  image_url VARCHAR(750) ,
   latitude FLOAT NOT NULL,
   longitude FLOAT NOT NULL,
   leaflet_id INTEGER DEFAULT -1
