@@ -37,6 +37,7 @@
     <script type="text/javascript" src="scripts/app.js" defer></script>
     <script type="text/javascript" src="scripts/favourites.js"></script>
     <script type="text/javascript" src="scripts/toggle.js"></script>
+    <script type="text/javascript" src="scripts/account.js"></script>
 
     <title>LHL-Midterm</title>
   </head>
@@ -85,10 +86,30 @@
           <ul class="contri list closed"></ul>
         </li>
         <li id="create" class="title"><a href="#">Create New Map</a></li>
-        <li class="title"><a href="#">Account Settings</a></li>
+        <li id="account" class="title"><a href="#">Account Settings</a></li>
         <li class="title"><a href="#">Logout</a></li>
       </ul>
     </div>
-    <script></script>
+    <div class="form-card">
+      <div class="popup-overlay">
+        <form action="" method="post" class="popup-content">
+          <div class="card">
+            <div class="close"></div>
+            <div class="form-control">
+              <label for="name">Name</label>
+              <div class="info name"></div>
+            </div>
+            <div class="form-control">
+              <label for="email">Email</label>
+              <div class="info email"></div>
+            </div>
+            <div class="form-control">
+              <label for="password">Password</label>
+              <div class="info password"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </body>
 </html>

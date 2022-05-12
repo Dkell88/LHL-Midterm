@@ -6,12 +6,19 @@ const addGoogleSearch = (myMap) => {
 
   searchBox.addListener("places_changed", () => {
     const places = searchBox.getPlaces();
+    const searchLat = places[0].geometry.location.lat();
+    const searchLng = places[0].geometry.location.lng();
 
+    console.log(input.value);
     //we can also use .panTo
-    myMap.panTo(
-      [places[0].geometry.location.lat(), places[0].geometry.location.lng()],
-      8
-    );
+    myMap.panTo([searchLat, searchLng], 8);
+    let marker = new L.marker([searchLat, searchLng], {
+      //bubblingMouseEvents: true,
+      title: input.value,
+    });
+    marker.bindPopup(markerPopup).openPopup();
+    markerLayerGroup.addLayer(marker);
+    markerLayerGroup.addTo(map);
   });
 };
 

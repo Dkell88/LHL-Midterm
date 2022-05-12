@@ -48,10 +48,10 @@ const renderContri = function (data) {
 const loadFav = (id) => {
   $.ajax({
     type: "GET",
-    url: `/users/${id}`,
+    url: `/users/favs/${id}`,
     success: (response) => {
       console.log("fron users/id", response);
-      renderContri(response); 
+      renderContri(response);
     },
   });
 };

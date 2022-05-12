@@ -1,0 +1,65 @@
+.form-card {
+  // background: rgba(0, 0, 0, 0.2);
+  // backdrop-filter: blur(4px);
+  .popup-overlay,
+  .popup-content,
+  .close {
+    display: none;
+  }
+  // .popup-overlay {
+  //   backdrop-filter: blur(2px);
+  // }
+  .popup-overlay,
+  .popup-content {
+    &.in-view {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      width: 100%;
+      z-index: 100000;
+
+      background: rgba(0, 0, 0, 0.4);
+      // backdrop-filter: blur(2px);
+    }
+  }
+  .popup-content {
+    .card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 5px;
+      .form-control {
+        display: flex;
+        flex-direction: column;
+        label {
+          font-size: 1.5rem;
+          border-bottom: 2px dotted #333;
+          font-family: "Ubuntu";
+        }
+        div {
+          font-size: 2rem;
+          padding-bottom: 1rem;
+        }
+      }
+    }
+  }
+  .close {
+    &.in-view {
+      display: flex;
+      height: 2.5rem;
+      width: 100%;
+      background: #fff;
+      background-image: url("../icons/close.png");
+      background-repeat: no-repeat;
+      background-size: 30px;
+      background-position: right;
+      z-index: 10000;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        background-size: 35px;
+      }
+    }
+  }
+}

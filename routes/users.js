@@ -9,7 +9,7 @@ const express = require("express");
 const router = express.Router();
 // const userQueries = require("../db/user-queries");
 const userRouter = (db) => {
-  router.get("/:id", (req, res) => {
+  router.get("/favs/:id", (req, res) => {
     db.query(
       `
       SELECT maps.*
@@ -47,6 +47,25 @@ const userRouter = (db) => {
     ).catch((err) => {
       res.status(500).json({ error: err.message });
     });
+  });
+  router.get("/:id", (req, res) => {
+    console.log("req.params", req.params);
+    db.query(
+      `
+      SELECT *
+      FROM users
+      WHERE users.id = $1
+      `,
+      [req.params.id]
+    )
+      .then((data) => {
+        const users = data.rows[0];
+        console.log("users", users);
+        res.json({ users });
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
   });
 
   return router;

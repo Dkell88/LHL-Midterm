@@ -3,6 +3,7 @@
 @import "navbar";
 @import "popup";
 @import "save-map";
+@import "account-form";
 @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;500&family=Ubuntu:wght@300;400&display=swap");
 
 //Reset
@@ -102,6 +103,8 @@ p {
           height: 45px;
           cursor: pointer;
           border-bottom: none;
+          background: url("../icons/heart-full-2.png") no-repeat;
+          background-size: 40px;
         }
         &.saved {
           background: url("../icons/heart-full-2.png") no-repeat;
