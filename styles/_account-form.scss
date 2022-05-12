@@ -11,10 +11,6 @@
   // }
   .popup-overlay,
   .popup-content {
-    .form-control {
-      display: flex;
-      flex-direction: column;
-    }
     &.in-view {
       display: flex;
       flex-direction: column;
@@ -28,18 +24,35 @@
       // backdrop-filter: blur(2px);
     }
   }
+  .popup-content {
+    .card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 5px;
+      .form-control {
+        display: flex;
+        flex-direction: column;
+        label {
+          font-size: 1.5rem;
+          border-bottom: 2px dotted #333;
+        }
+        div {
+          font-size: 2rem;
+          padding-bottom: 1rem;
+        }
+      }
+    }
+  }
   .close {
     &.in-view {
       display: flex;
-      justify-content: end;
-      align-items: center;
       height: 2.5rem;
-      width: 2.5rem;
-      margin-left: 12rem;
+      width: 100%;
+      background: #fff;
       background-image: url("../icons/close.png");
       background-repeat: no-repeat;
       background-size: 30px;
-      background-position: center;
+      background-position: right;
       z-index: 10000;
       cursor: pointer;
       transition: 0.3s;

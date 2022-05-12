@@ -103,6 +103,8 @@ p {
           height: 45px;
           cursor: pointer;
           border-bottom: none;
+          background: url("../icons/heart-full-2.png") no-repeat;
+          background-size: 40px;
         }
         &.saved {
           background: url("../icons/heart-full-2.png") no-repeat;
