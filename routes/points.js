@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
-// Once teh queries are working we'll pull them out to a seperate file
 const pointQueries = require('../db/queries/points-queries')
 
 const pointRouter = () => {
-  //GET /points/
+  //GET /points/ 
   router.get("/", (req, res) => {
     pointQueries.getPoints()
       .then((points) => {
