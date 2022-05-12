@@ -1,6 +1,7 @@
 $(() => {
   const menuToggle = document.querySelector(".toggle");
   menuToggle.style.display = "none";
+
   $("#save-map").hide();
 
   $("#logout").click(() => {
@@ -17,9 +18,15 @@ $(() => {
     $("#login").css("display", "inline");
     markerLayerGroup.clearLayers();
     getCurrentUserLocation(map);
+
+    $(".register").css("display", "inline");
+
+    $(".heart").css("visibility", "hidden");
+    $(".map-title").css("visibility", "hidden");
   });
 
   $("#login").click(() => {
+    $(".register").css("display", "none");
     $("#login").css("display", "none");
     $("#save-map").show();
 

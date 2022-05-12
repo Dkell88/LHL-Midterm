@@ -1,9 +1,22 @@
 @import "variables";
 
 #header {
+  padding: 0 3rem;
+  .map-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  .register {
+    margin-right: 1.3rem;
+  }
   backdrop-filter: blur(10px);
 
-  #login {
+  .login {
+    margin-right: -2rem;
+  }
+
+  .button {
     padding: 0.5rem 1rem;
     background-color: inherit;
     border-radius: 2px;
@@ -28,7 +41,7 @@
       position: absolute;
       top: 50%;
       left: 0;
-      border-radius: 2px;
+      border-radius: 5px;
       transform: translate(-101%, -50%);
       width: 100%;
       height: 100%;
@@ -48,5 +61,45 @@
     width: 100%;
     height: 80px;
     z-index: 100;
+  }
+  .nav {
+    input#searchBox {
+      margin: 0 auto;
+      width: 100%;
+      height: 45px;
+      padding: 0 20px;
+      font-size: 1rem;
+      border: 1px solid #d0cfce;
+      outline: none;
+      &:focus {
+        border: 1px solid #008abf;
+        transition: 0.35s ease;
+        color: #008abf;
+        &::-webkit-input-placeholder {
+          transition: opacity 0.45s ease;
+          opacity: 0;
+        }
+        &::-moz-placeholder {
+          transition: opacity 0.45s ease;
+          opacity: 0;
+        }
+        &:-ms-placeholder {
+          transition: opacity 0.45s ease;
+          opacity: 0;
+        }
+      }
+    }
+  }
+  .saved {
+    animation: pulse-animation 1.1s infinite ease-in-out alternate;
+  }
+
+  @keyframes pulse-animation {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(1.3);
+    }
   }
 }
