@@ -1,4 +1,3 @@
-let POINT_ID = 0;
 
 const addGoogleSearch = (myMap) => {
   const input = document.getElementById("searchBox");
