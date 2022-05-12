@@ -60,10 +60,10 @@ const renderContri = function (data) {
 const loadFav = (id) => {
   $.ajax({
     type: "GET",
-    url: `/users/${id}`,
+    url: `/users/favs/${id}`,
     success: (response) => {
       // { users }
-      // renderFav(response);
+      renderFav(response);
       renderContri(response);
     },
   });
