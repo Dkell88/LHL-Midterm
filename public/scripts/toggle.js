@@ -19,7 +19,7 @@ $(() => {
   const heart = document.querySelector(".heart");
 
   heart.addEventListener("click", () => {
-    console.log("heart is clicked");
+    $.post("/users/fav");
     heart.classList.toggle("saved");
   });
 

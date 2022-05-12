@@ -37,6 +37,18 @@ const userRouter = (db) => {
       });
   });
 
+  router.post("/fav", (req, res) => {
+    db.query(
+      `
+      INSERT INTO favourites (user_id,map_id )
+      VALUES ($1,$2);
+      `,
+      [1, req.cookies.mapID]
+    ).catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+  });
+
   return router;
 };
 

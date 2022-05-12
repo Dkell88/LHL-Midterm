@@ -27,6 +27,7 @@ const mapsRouter = (db) => {
       .then((data) => {
         console.log("maps router", data);
         const maps = data.rows[0];
+        req.cookies.mapID = maps.id;
         res.json(maps);
         res.status(200).end();
       })
