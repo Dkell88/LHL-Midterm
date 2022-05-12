@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
+const db = require('../db/db');
+
 // maps/
-const mapsRouter = (db) => {
+const mapsRouter = () => {
   router.get("/:mapID", (req, res) => {
     db.query(`SELECT * FROM maps WHERE id = ${req.params.mapID};`)
       .then((data) => {

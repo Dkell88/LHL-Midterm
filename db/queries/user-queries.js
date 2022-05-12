@@ -1,5 +1,8 @@
-// If we aren't going to pass the DB connection to the router then we'll need to require teh db here// constdb = require()'../dbConnection'
-);
+// If we aren't going to pass the DB connection to the router then we'll need to require teh db here// 
+
+
+const db = require('./db');
+
 const getUserById = (id) => {
   return db
     .query("SELECT * FROM users WHERE id = $1;", [id])

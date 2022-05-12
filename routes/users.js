@@ -4,11 +4,11 @@
  *   these routes are mounted onto /users
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
-
+const db = require('../db/db');
 const express = require("express");
 const router = express.Router();
 // const userQueries = require("../db/user-queries");
-const userRouter = (db) => {
+const userRouter = () => {
   router.get("/contri/:id", (req, res) => {
     db.query(
       `
