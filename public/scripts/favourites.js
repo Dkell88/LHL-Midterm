@@ -42,7 +42,7 @@ const addMap = (map) => {
 
 const renderContri = function (data) {
   $(".contri").empty();
-  data.maps.forEach(addMap);
+  data.users.forEach(addMap);
 };
 
 const loadFav = (id) => {
@@ -51,7 +51,7 @@ const loadFav = (id) => {
     url: `/users/${id}`,
     success: (response) => {
       console.log("fron users/id", response);
-      renderContri(response);
+      renderContri(response); 
     },
   });
 };

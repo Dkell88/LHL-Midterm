@@ -72,6 +72,7 @@ service = new google.maps.places.PlacesService(Gmap);
 
 
 $(() => {
+
   const renderMap = function (map) {
     L.tileLayer(
       "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
@@ -241,22 +242,22 @@ $(() => {
             
     });
     
-    $('#map').on('click', '.pin-deets-delete', function(event) {
+  $('#map').on('click', '.pin-deets-delete', function(event) {
 
-      event.preventDefault();
- 
-      layerToDelete = getPopupID(); 
-      pointIdToDelete = layerToDelete.options.title;
+    event.preventDefault();
 
-      $.post(`/points/${pointIdToDelete}/delete`)
-        .then(() => {
-          layerToDelete.remove();
-          layerToDelete.remove(markerLayerGroup);
-        }).catch((e) =>{
-          console.log(e.responseJSON)
-      })
+    layerToDelete = getPopupID(); 
+    pointIdToDelete = layerToDelete.options.title;
 
-    });
+    $.post(`/points/${pointIdToDelete}/delete`)
+      .then(() => {
+        layerToDelete.remove();
+        layerToDelete.remove(markerLayerGroup);
+      }).catch((e) =>{
+        console.log(e.responseJSON)
+    })
+
+  });
 
   $("#map").on("click", ".pin-deets-edit", function (event) {
     event.preventDefault();
@@ -278,54 +279,52 @@ $(() => {
     layerToAppend.setPopupContent(markerPopupAppend);
   });
 
-    });
-
-    $('#map').on('click', '.pin-deets-confirm', function(event) {
-      event.preventDefault();
+  $('#map').on('click', '.pin-deets-confirm', function(event) {
+    event.preventDefault();
+  
+    const kids = $(this).parent().parent().has('textarea')
+    const pointToEdit = {
+      title: $(kids[0][0]).val(),
+      description: $(kids[0][1]).val(),
+      image_url: $(kids[0][2]).val(),
+      leafletId: -999
+    };
     
-      const kids = $(this).parent().parent().has('textarea')
-      const pointToEdit = {
-        title: $(kids[0][0]).val(),
-        description: $(kids[0][1]).val(),
-        image_url: $(kids[0][2]).val(),
-        leafletId: -999
-      };
-      
-      if(!pointToEdit.title && !pointToEdit.description && !pointToEdit.image_url) {
-        console.log("Nothing entered")
-        return sibling = $(this).siblings('.pin-deets-cancel').trigger('click')
-      }
-      //Need to start making functions to clean up, if nothing is returned then cancele
+    if(!pointToEdit.title && !pointToEdit.description && !pointToEdit.image_url) {
+      console.log("Nothing entered")
+      return sibling = $(this).siblings('.pin-deets-cancel').trigger('click')
+    }
+    //Need to start making functions to clean up, if nothing is returned then cancele
 
-      
-      layerToEdit = getPopupID();
-      pointIdToEdit = layerToEdit.options.title;
-      
-      $.get(`points/${pointIdToEdit}`)
-      .then(point => {
-        if(!pointToEdit.title) pointToEdit.title = point.title
-        if(!pointToEdit.description) pointToEdit.description = point.description
-        if(!pointToEdit.image_url) pointToEdit.image_url = point.image_url
-        let markerPopupDetails = `
-          <section class = "pin-popus">
-            <span>${pointToEdit.title}</span><br>
-            <span>${pointToEdit.description}</span><br>
-            <img class = "popup-imgage" src="${pointToEdit.image_url}">
-            <div>
-              <button class="pin-deets-edit">Edit</button>
-              <button class="pin-deets-delete">Delete</button>
-            </div>
-          </section>`
-        pointToEdit.leafletId = point.leafletId;
-        $.post(`/points/${point.id}/edit`, pointToEdit)
-          .then(point => {
-            layerToEdit.setPopupContent(markerPopupDetails);
-          })
-      })
+    
+    layerToEdit = getPopupID();
+    pointIdToEdit = layerToEdit.options.title;
+    
+    $.get(`points/${pointIdToEdit}`)
+    .then(point => {
+      if(!pointToEdit.title) pointToEdit.title = point.title
+      if(!pointToEdit.description) pointToEdit.description = point.description
+      if(!pointToEdit.image_url) pointToEdit.image_url = point.image_url
+      let markerPopupDetails = `
+        <section class = "pin-popus">
+          <span>${pointToEdit.title}</span><br>
+          <span>${pointToEdit.description}</span><br>
+          <img class = "popup-imgage" src="${pointToEdit.image_url}">
+          <div>
+            <button class="pin-deets-edit">Edit</button>
+            <button class="pin-deets-delete">Delete</button>
+          </div>
+        </section>`
+      pointToEdit.leafletId = point.leafletId;
+      $.post(`/points/${point.id}/edit`, pointToEdit)
+        .then(point => {
+          layerToEdit.setPopupContent(markerPopupDetails);
+        })
+    })
 
-    });
+  });
 
-    $('#map').on('click', '.pin-deets-cancel', function(event) {
+  $('#map').on('click', '.pin-deets-cancel', function(event) {
 
       event.preventDefault();
       console.log("cancel clicked")
@@ -346,6 +345,7 @@ $(() => {
           </section>`;
       layerToRestore.setPopupContent(markerPopupDetails);
     });
+  });
     
     renderMap(map);
     const markerLayerGroup = setupLayerGroup(map);
