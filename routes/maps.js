@@ -20,14 +20,14 @@ const mapsRouter = (db) => {
     db.query(
       `
       INSERT INTO maps (user_id,title,city,country,created_at,latitude, longitude )
-      VALUES (1,$1,'winnipeg','canada',NOW(),$2,$3);
+      VALUES (15,$1,'winnipeg','canada',NOW(),$2,$3) RETURNING *;
       `,
       [req.body.title, req.body.lat, req.body.lng]
     )
       .then((data) => {
         console.log("maps router", data);
         const maps = data.rows[0];
-        // res.json(maps);
+        res.json(maps);
         res.status(200).end();
       })
       .catch((err) => {

@@ -42,7 +42,7 @@ const addMap = (map) => {
 
 const renderContri = function (data) {
   $(".contri").empty();
-  data.maps.forEach(addMap);
+  data.users.forEach(addMap);
 };
 
 const loadFav = (id) => {
@@ -59,7 +59,7 @@ const loadFav = (id) => {
 $(() => {
   // load jquery before you do this
   // get the user data using the cookies = userId = 1
-  const userId = 1; // change it cookies after login impl
+  const userId = 15; // change it cookies after login impl
   // if the user is logged then load his fav's
   if (userId) {
     loadFav(userId);

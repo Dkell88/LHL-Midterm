@@ -20,7 +20,7 @@ const getCurrentUserLocation = (map) => {
     const longitude = position.coords.longitude;
     map.setView([latitude, longitude], 15);
   });
-  $.get('/home');
+  $.get("/home");
 };
 
 const loadMap = function () {
@@ -56,8 +56,16 @@ const loadMap = function () {
       data: { lat, lng, title },
       success: (data) => {
         console.log("success");
-        loadFav(1); //remove this!!!
+        loadFav(15); //remove this!!!
       },
+    }).then((postedMap) => {
+      // console.log("this is your new map", postedMap, req.cookie);
+
+      $.ajax(`/maps/:${postedMap.id}`),
+        {
+          method: "GET",
+          data: { lat, lng, title },
+        };
     });
   });
 
