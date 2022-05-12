@@ -1,14 +1,13 @@
 // load .env data into process.env
 require("dotenv").config();
 
-
 // Web server config
 const PORT = process.env.PORT || 8080;
 const sassMiddleware = require("./lib/sass-middleware");
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 
 //We'llneedtomove this to
 // PG database client/connection setup
@@ -38,7 +37,7 @@ app.use(
 
 app.use(express.static("public"));
 
-app.get("/home", (req,res) => {
+app.get("/home", (req, res) => {
   //ranNum = Number(Math.random().toString(10).substring(2,6));
   res.cookie("mapID", 1);
   res.send();

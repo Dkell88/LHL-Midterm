@@ -1,4 +1,3 @@
-
 const express = require("express");
 const router = express.Router();
 // Once teh queries are working we'll pull them out to a seperate file
@@ -14,7 +13,7 @@ const pointRouter = (db) => {
         res.json({ points });
       })
       .catch((err) => {
-        console.log(err.message)
+        console.log(err.message);
         res.status(500).json({ error: err.message });
       });
   });
@@ -46,7 +45,7 @@ const pointRouter = (db) => {
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
-        console.log("Get/point/:id error ", err.message)
+        console.log("Get/point/:id error ", err.message);
       });
   });
 
@@ -83,7 +82,7 @@ const pointRouter = (db) => {
         res.send(pointAdded.rows[0]);
       })
       .catch((err) => {
-        console.log("This the error on the POST /popints/: ", err.message)
+        console.log("This the error on the POST /popints/: ", err.message);
         res.status(500).json({ error: err.message });
       });
   });
@@ -93,35 +92,37 @@ const pointRouter = (db) => {
       UPDATE points
       SET title = $2, description = $3, image_url = $4, leaflet_id = $5
       WHERE id = $1
-      RETURNING *`
-      const queryParams = [req.params.id, req.body.title, req.body.description, req.body.image_url, req.body.leafletId];
-      db.query(queryString,queryParams)
-        .then(pointEdited => {
-          res.send(pointEdited.rows[0]);
-        })
-        .catch(err => {
-          res
-            .status(500)
-            .json({ error: err.message });
-        });
-    });
-    
-    router.post("/:id/delete", (req, res) => {
-      let queryString = `
+      RETURNING *`;
+    const queryParams = [
+      req.params.id,
+      req.body.title,
+      req.body.description,
+      req.body.image_url,
+      req.body.leafletId,
+    ];
+    db.query(queryString, queryParams)
+      .then((pointEdited) => {
+        res.send(pointEdited.rows[0]);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  router.post("/:id/delete", (req, res) => {
+    let queryString = `
       DELETE FROM points
       WHERE id = $1
-      RETURNING *`
-      const queryParams = [req.params.id];
-      db.query(queryString,queryParams)
-        .then(pointEdited => {
-          res.send(pointEdited.rows[0]);
-        })
-        .catch(err => {
-          res
-            .status(500)
-            .json({ error: err.message });
-        });
-    });
+      RETURNING *`;
+    const queryParams = [req.params.id];
+    db.query(queryString, queryParams)
+      .then((pointEdited) => {
+        res.send(pointEdited.rows[0]);
+      })
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
 
   return router;
 };

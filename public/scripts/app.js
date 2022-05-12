@@ -73,7 +73,7 @@ const loadMap = function () {
       data: { lat, lng, title },
       success: (data) => {
         console.log("data", data);
-        loadFav(1); //remove this!!!
+        loadContri(1); //remove this!!!
         $(".map-title").text(data.title).show();
         $(".heart").css("visibility", "visible");
         $("#save-map").hide();
