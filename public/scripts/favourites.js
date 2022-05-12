@@ -51,7 +51,7 @@ const loadFav = (id) => {
     url: `/users/${id}`,
     success: (response) => {
       console.log("fron users/id", response);
-      renderContri(response);
+      renderContri(response); 
     },
   });
 };
