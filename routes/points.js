@@ -10,7 +10,6 @@ const pointRouter = () => {
         res.json(points);
       })
       .catch((err) => {
-        console.log(err.message);
         res.status(500).json({ error: err.message });
       });
   });
@@ -32,7 +31,6 @@ const pointRouter = () => {
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
-        console.log("Get/point/:id error ", err.message);
       });
   });
 
@@ -43,7 +41,6 @@ const pointRouter = () => {
         res.send(pointAdded);
       })
       .catch((err) => {
-        console.log("This the error on the POST /point/: ", err.message);
         res.status(500).json({ error: err.message });
       });
   });

@@ -74,19 +74,20 @@ const loadMap = function () {
       success: (data) => {
         console.log("data", data);
         loadContri(1); //remove this!!!
-        $(".map-title").text(data.title).show();
-        $(".heart").css("visibility", "visible");
-        $("#save-map").hide();
-        $("#new-map-title").val("");
+        showTitleAndIcons(true)
+        // $(".map-title").text(data.title).show();
+        // $(".heart").css("visibility", "visible");
+        // $("#save-map").hide();
+        // $("#new-map-title").val("");
       },
     });
     $("#create").click(() => {
       markerLayerGroup.clearLayers();
       getCurrentUserLocation(map);
-      $(".map-title").hide();
-      $(".heart").css("visibility", "hidden");
-
-      $("#save-map").show();
+      showTitleAndIcons(false)
+      // $(".map-title").hide();
+      // $(".heart").css("visibility", "hidden");
+      // $("#save-map").show();
     });
   });
 

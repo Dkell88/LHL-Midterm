@@ -29,7 +29,6 @@ const getPoint = (id) => {
   const queryParams = [id];
   return db.query(query, queryParams)
     .then((point) => {
-      console.log("The then return from get point: ", point.rows[0])
       return point.rows[0];
     })
 };
@@ -48,7 +47,6 @@ const postPoint = (id, pointObj) => {
     pointObj.longitude,
     pointObj.leafletId,
   ];
-  console.log("Post point query, query Params: ", queryParams)
   return db.query(queryString, queryParams)
     .then((pointAdded) => {
       return pointAdded.rows[0];
