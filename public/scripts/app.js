@@ -101,6 +101,8 @@ $(() => {
 
   function onMapClick(event) {
 
+
+
     let point = {
       mapId: -999, //Set by cookies when POST call is make
       leafletId: -999, //Set after POST is made and marker is creted.
@@ -242,9 +244,6 @@ $(() => {
         layerToDelete.remove();
         layerToDelete.remove(markerLayerGroup);
       })
-      .catch((e) => {
-        console.log(e.responseJSON);
-      });
   });
 
   $("#map").on("click", ".pin-deets-edit", function (event) {
@@ -366,19 +365,15 @@ $(() => {
     
     const zoom = (18 - map.getZoom())
     const latLng = map.getCenter()
-    console.log(latLng)
-    console.log(zoom)
     const viewArea = {
       minLat: latLng.lat - ((zoom * 0.5)+0.05),
       maxLat: latLng.lat + ((zoom * 0.5) + 0.05),
       minLng: latLng.lng - ((zoom * 0.5)+0.05),
       maxLng: latLng.lng + ((zoom * 0.5) + 0.05),
     }
-    console.log(viewArea)
     //$.get('maps/', viewArea)
    $.post('maps/area', viewArea)
     .then((maps) =>{
-      console.log("Maps returned from get maps", maps)
       createQuickLinks(maps)
     })
   }
