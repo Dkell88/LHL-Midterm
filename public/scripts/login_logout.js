@@ -2,6 +2,14 @@ $(() => {
   const menuToggle = document.querySelector(".toggle");
   menuToggle.style.display = "none";
 
+  $("#error").css("visibility", "hidden");
+  $("#error").css("color", "red");
+
+  $("#new-map-title").on("input", function () {
+    // $("#error").css("visibility", "hidden");
+    $("#error").slideUp("fast");
+  });
+
   $("#save-map").hide();
 
   $("#logout").click(() => {

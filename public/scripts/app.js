@@ -86,7 +86,6 @@ $(() => {
           "pk.eyJ1IjoiZGtlbGw4OCIsImEiOiJjbDJ3Zm44NjMwZjVqM2RxY3gyN3J6dXJ2In0.SYE3QdtfFxH63YvUTI7FMA",
       }
     ).addTo(map);
-
   };
 
   const getPopupID = function () {
@@ -100,7 +99,6 @@ $(() => {
   };
 
   function onMapClick(event) {
-
     let point = {
       mapId: -999, //Set by cookies when POST call is make
       leafletId: -999, //Set after POST is made and marker is creted.
@@ -111,7 +109,7 @@ $(() => {
       longitude: event.latlng.lng,
     };
     let imagePlaceHolder = "Image URL";
-    console.log(`lat: ${point.latitude} long: ${point.longitude}`)
+    console.log(`lat: ${point.latitude} long: ${point.longitude}`);
     //------------------------------------------------------------------------------------------------------------
     const geocoder = new google.maps.Geocoder();
 
@@ -159,18 +157,17 @@ $(() => {
           }
           //*********************************************************************** */
 
+          $.post("points/", point)
+            .then((pointPosted) => {
+              let marker = new L.marker(
+                [pointPosted.latitude, pointPosted.longitude],
+                {
+                  //bubblingMouseEvents: true,
+                  title: pointPosted.id,
+                }
+              );
 
-
-          $.post("points/", point).then((pointPosted) => {
-            let marker = new L.marker(
-              [pointPosted.latitude, pointPosted.longitude],
-              {
-                //bubblingMouseEvents: true,
-                title: pointPosted.id,
-              }
-            );
-
-            let markerPopup = `
+              let markerPopup = `
                       <div >
                         <form class="point-form">
                           <textarea name="title" placeholder="Title of the pin?"></textarea><br>
@@ -183,15 +180,19 @@ $(() => {
                         </form>
                       </div>`;
 
-            marker.bindPopup(markerPopup).openPopup();
-            markerLayerGroup.addLayer(marker);
-            markerLayerGroup.addTo(map);
+              marker.bindPopup(markerPopup).openPopup();
+              markerLayerGroup.addLayer(marker);
+              markerLayerGroup.addTo(map);
 
-            const num = marker._leaflet_id;
-            pointPosted.leafletId = num;
+              const num = marker._leaflet_id;
+              pointPosted.leafletId = num;
 
-            $.post(`/points/${pointPosted.id}/edit`, pointPosted);
-          });
+              $.post(`/points/${pointPosted.id}/edit`, pointPosted);
+            })
+            .catch(() => {
+              $("#error").slideDown("fast");
+              $("#error").css("visibility", "visible");
+            });
           //*********************************************************************** */
         }
       });
@@ -334,8 +335,7 @@ $(() => {
   $("#create").on("click", () => {
     markerLayerGroup.clearLayers();
     getCurrentUserLocation(map);
-    showTitleAndIcons(false)
-
+    showTitleAndIcons(false);
   });
 
   $("#new-map").on("click", () => {
@@ -343,49 +343,51 @@ $(() => {
     const lat = bounds._northEast.lat;
     const lng = bounds._northEast.lng;
     const title = $("#new-map-title").val();
+    if (title === "") {
+      $("#error").css("visibility", "visible");
+      $("#error").slideDown("fast");
+      return;
+    }
     $.ajax(`/maps`, {
       method: "POST",
       data: { lat, lng, title },
       success: (data) => {
         loadContri(1); //remove this!!!
-        showTitleAndIcons(true, data.title)
+        showTitleAndIcons(true, data.title);
       },
     });
   });
 
-  const createQuickLinks  = function (links) {
-    $("#quick-links").empty()
-    for(const link of links){
-      $('#quick-links').prepend(`<div class="button map-link">
+  const createQuickLinks = function (links) {
+    $("#quick-links").empty();
+    for (const link of links) {
+      $("#quick-links").prepend(`<div class="button map-link">
       <a onclick= renderMapId(${link.id})><h3><span>${link.title}</span></h3></a>
       </div>`);
     }
-  }
+  };
 
   const mapMoved = function (event) {
-    
-    const zoom = (18 - map.getZoom())
-    const latLng = map.getCenter()
-    console.log(latLng)
-    console.log(zoom)
+    const zoom = 18 - map.getZoom();
+    const latLng = map.getCenter();
+    console.log(latLng);
+    console.log(zoom);
     const viewArea = {
-      minLat: latLng.lat - ((zoom * 0.5)+0.05),
-      maxLat: latLng.lat + ((zoom * 0.5) + 0.05),
-      minLng: latLng.lng - ((zoom * 0.5)+0.05),
-      maxLng: latLng.lng + ((zoom * 0.5) + 0.05),
-    }
-    console.log(viewArea)
+      minLat: latLng.lat - (zoom * 0.5 + 0.05),
+      maxLat: latLng.lat + (zoom * 0.5 + 0.05),
+      minLng: latLng.lng - (zoom * 0.5 + 0.05),
+      maxLng: latLng.lng + (zoom * 0.5 + 0.05),
+    };
+    console.log(viewArea);
     //$.get('maps/', viewArea)
-   $.post('maps/area', viewArea)
-    .then((maps) =>{
-      console.log("Maps returned from get maps", maps)
-      createQuickLinks(maps)
-    })
-  }
+    $.post("maps/area", viewArea).then((maps) => {
+      console.log("Maps returned from get maps", maps);
+      createQuickLinks(maps);
+    });
+  };
 
- 
   renderMap(map);
   map.on("click", onMapClick);
-  map.on('mouseup', mapMoved,);
-  map.on('zoomanim', mapMoved)
+  map.on("mouseup", mapMoved);
+  map.on("zoomanim", mapMoved);
 });
