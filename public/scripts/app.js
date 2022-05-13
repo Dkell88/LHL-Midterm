@@ -9,7 +9,6 @@ const addGoogleSearch = (myMap) => {
     const searchLat = places[0].geometry.location.lat();
     const searchLng = places[0].geometry.location.lng();
 
-    console.log(input.value);
     //we can also use .panTo
     myMap.panTo([searchLat, searchLng], 8);
     let marker = new L.marker([searchLat, searchLng], {
@@ -88,7 +87,6 @@ $(() => {
       }
     ).addTo(map);
 
-    //console.log("This is the map object: ", map)
   };
 
   const getPopupID = function () {
@@ -113,7 +111,7 @@ $(() => {
       longitude: event.latlng.lng,
     };
     let imagePlaceHolder = "Image URL";
-
+    console.log(`lat: ${point.latitude} long: ${point.longitude}`)
     //------------------------------------------------------------------------------------------------------------
     const geocoder = new google.maps.Geocoder();
 
@@ -127,7 +125,6 @@ $(() => {
       .geocode({ location: latlng }, function (results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           if (results[1]) {
-            console.log(results[1].place_id);
             placeIDToUse = results[1].place_id;
           } else {
             console.log("No results found");
@@ -215,9 +212,7 @@ $(() => {
     pointIdToEdit = layerToEdit.options.title;
 
     $.get(`points/${pointIdToEdit}`).then((point) => {
-      console.log("Get request after submit returend: ", point);
       if (!pointToEdit.image_url) {
-        console.log("no url found using existing: ", point.image_url);
         pointToEdit.image_url = point.image_url;
       }
       $.post(`/points/${point.id}/edit`, pointToEdit).then((point) => {
@@ -288,7 +283,6 @@ $(() => {
       !pointToEdit.description &&
       !pointToEdit.image_url
     ) {
-      console.log("Nothing entered");
       return (sibling = $(this).siblings(".pin-deets-cancel").trigger("click"));
     }
     //Need to start making functions to clean up, if nothing is returned then cancele
@@ -319,7 +313,6 @@ $(() => {
 
   $("#map").on("click", ".pin-deets-cancel", function (event) {
     event.preventDefault();
-    console.log("cancel clicked");
     layerToRestore = getPopupID();
     pointIdToRestore = layerToRestore.options.title;
 
@@ -339,7 +332,6 @@ $(() => {
   });
 
   $("#create").on("click", () => {
-    console.log("Create clicked");
     markerLayerGroup.clearLayers();
     getCurrentUserLocation(map);
     showTitleAndIcons(false)
@@ -355,18 +347,45 @@ $(() => {
       method: "POST",
       data: { lat, lng, title },
       success: (data) => {
-        console.log("data", data);
         loadContri(1); //remove this!!!
         showTitleAndIcons(true, data.title)
       },
     });
   });
 
-  const onMapMouseUp = function (event) {
-    console.log("this is a mouse up event: ", event)
+  const createQuickLinks  = function (links) {
+    $("#quick-links").empty()
+    for(const link of links){
+      $('#quick-links').prepend(`<div class="button map-link">
+      <a onclick= renderMapId(${link.id})><h3><span>${link.title}</span></h3></a>
+      </div>`);
+    }
   }
 
+  const mapMoved = function (event) {
+    
+    const zoom = (18 - map.getZoom())
+    const latLng = map.getCenter()
+    console.log(latLng)
+    console.log(zoom)
+    const viewArea = {
+      minLat: latLng.lat - ((zoom * 0.5)+0.05),
+      maxLat: latLng.lat + ((zoom * 0.5) + 0.05),
+      minLng: latLng.lng - ((zoom * 0.5)+0.05),
+      maxLng: latLng.lng + ((zoom * 0.5) + 0.05),
+    }
+    console.log(viewArea)
+    //$.get('maps/', viewArea)
+   $.post('maps/area', viewArea)
+    .then((maps) =>{
+      console.log("Maps returned from get maps", maps)
+      createQuickLinks(maps)
+    })
+  }
+
+ 
   renderMap(map);
   map.on("click", onMapClick);
-  map.on('mouseup', onMapMouseUp,);
+  map.on('mouseup', mapMoved,);
+  map.on('zoomanim', mapMoved)
 });

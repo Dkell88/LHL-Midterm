@@ -12,6 +12,18 @@ const getMap = (id) => {
       return map.rows[0];
     })
 }
+const getMaps = (area) => {
+  const query = `
+  SELECT * 
+  FROM maps 
+  WHERE latitude BETWEEN $1 AND $2 AND longitude BETWEEN $3 AND $4
+  LIMIT 5`;
+  let queryParams = [area.minLat, area.maxLat, area.minLng, area.maxLng];
+  return db.query(query, queryParams) 
+    .then((maps) => {
+      return maps.rows;
+    })
+}
 
 const postMap = (map) => {
   const query =  `
@@ -27,5 +39,6 @@ const postMap = (map) => {
 
 module.exports = { 
   getMap,
+  getMaps,
   postMap
 };

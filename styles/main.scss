@@ -236,3 +236,20 @@ p {
   align-items: center;
   z-index: 10;
 }
+
+#quick-links {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  position: absolute;
+  top: 100px;
+  z-index: 1000000;
+}
+.map-link {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.505);
+  
+  //  border: 2px solid $primary-color;
+
+}
