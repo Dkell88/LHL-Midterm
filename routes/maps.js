@@ -15,6 +15,7 @@ const mapsRouter = () => {
         });
   });
 
+
   router.post("/", (req, res) => {
     mapQueries.postMap(req.body)
       .then((map) => {

@@ -16,7 +16,7 @@ const showTitleAndIcons = (command, title) => {
 const renderList = (data) => {
   const $li = `
   <li class="show-map">
-  <a onclick= renderContriMap(${data.id})><h3>${data.title}</h3></a>
+  <a onclick= renderMapId(${data.id})><h3>${data.title}</h3></a>
   </li>`;
   return $li;
 };
@@ -28,7 +28,7 @@ const populateList = function (data, targetClass) {
   }
 };
 
-const renderContriMap = (mapId) => {
+const renderMapId = (mapId) => {
   $.get(`/maps/${mapId}`)
   .then((MapToLoad) => {
     map.panTo(new L.LatLng(MapToLoad.latitude, MapToLoad.longitude));
@@ -37,13 +37,37 @@ const renderContriMap = (mapId) => {
   });
   $.get(`points/maps/${mapId}`)
     .then((points) => {
+      markerLayerGroup.clearLayers();
       if (points) {
         for (const point of points) {
-          //Add points to map !!!!!!!!!!!!!!!!!!!!!!!
-          L.marker([point.latitude, point.longitude]).addTo(map);
+          let marker = new L.marker([point.latitude, point.longitude],{title: point.id,});
+          let markerPopupDetails = `
+          <section class = "pin-popus">
+          <span>${point.title}</span><br>
+          <span>${point.description}</span><br>
+            <img class = "popup-imgage" src = ${point.image_url}>
+            <div>
+            <button class="pin-deets-edit">Edit</button>
+            <button class="pin-deets-delete">Delete</button>
+            </div>
+            </section>`;
+          marker.bindPopup(markerPopupDetails).openPopup();
+          markerLayerGroup.addLayer(marker);
         }
+        markerLayerGroup.addTo(map);
       }
     });
+    $.get(`/users/favs/1`) //Change to $.get('users/') if we are using user login
+    .then(favourites => {
+      favourites.shift()
+      for(const fav of favourites) {
+        if (fav.id === mapId) {
+          return $(".heart").addClass("saved");
+        }
+      }
+      $(".heart").removeClass("saved");
+    });
+
 };
 
 const loadContri = (id) => {
@@ -56,11 +80,10 @@ const loadContri = (id) => {
 const loadFav = (id) => {
   $.get(`/users/favs/${id}`)
     .then(favourites => {
+      favourites.shift()
       populateList(favourites, '.favs');
     });
 };
-
-
 
 
 $(() => {
@@ -71,10 +94,25 @@ $(() => {
   }
 
   $(".heart").on('click', () => {
-    console.log("heart clicked")
-    $.post("/users/fav");
-    $(".heart").toggleClass("saved");
-    loadFav(1);
-  });
-
+      $.get("/users/favs/1")  //Change to $.get('users/') if we are using user login
+        .then((favs) => {
+          const cookie = favs.slice(0,1);
+          favs.shift()
+          for(const fav of favs) {
+            if (fav.id == cookie[0].id) {
+              $.post(`/users/fav/delete/${fav.id}` )
+              .then(()=> {
+                $(".heart").removeClass("saved");
+                loadFav(1);  //Change to $.get('users/') if we are using user login
+              }); 
+              return
+            }
+          }
+          $.post("/users/fav")
+          .then(()=> {
+            $(".heart").addClass("saved");
+            loadFav(1);  //Change to $.get('users/') if we are using user login
+          }); 
+        }) 
+    });
 });

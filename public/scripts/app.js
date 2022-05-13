@@ -102,6 +102,7 @@ $(() => {
   };
 
   function onMapClick(event) {
+
     let point = {
       mapId: -999, //Set by cookies when POST call is make
       leafletId: -999, //Set after POST is made and marker is creted.
@@ -160,6 +161,9 @@ $(() => {
             }
           }
           //*********************************************************************** */
+
+
+
           $.post("points/", point).then((pointPosted) => {
             let marker = new L.marker(
               [pointPosted.latitude, pointPosted.longitude],
@@ -338,10 +342,8 @@ $(() => {
     console.log("Create clicked");
     markerLayerGroup.clearLayers();
     getCurrentUserLocation(map);
-    showTitleAndIcons(false);
-    // $(".map-title").hide();
-    // $(".heart").css("visibility", "hidden");
-    // $("#save-map").show();
+    showTitleAndIcons(false)
+
   });
 
   $("#new-map").on("click", () => {
@@ -355,15 +357,13 @@ $(() => {
       success: (data) => {
         console.log("data", data);
         loadContri(1); //remove this!!!
-        showTitleAndIcons(true, data.title);
-        // $(".map-title").text(data.title).show();
-        // $(".heart").css("visibility", "visible");
-        // $("#save-map").hide();
-        // $("#new-map-title").val("");
+        showTitleAndIcons(true, data.title)
       },
     });
   });
-  renderMap(map);
 
+
+  renderMap(map);
   map.on("click", onMapClick);
+
 });

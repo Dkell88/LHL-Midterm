@@ -26,7 +26,7 @@ app.use(express.static("public"));
 
 //Routes
 app.get("/home", (req, res) => {
-  res.cookie("mapID", 1);
+  res.cookie("mapID", -999);
   res.send();
 });
 const usersRoutes = require("./routes/users");

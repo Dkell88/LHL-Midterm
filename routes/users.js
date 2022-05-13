@@ -20,7 +20,6 @@ const userRouter = () => {
         res.json(contributions);
       })
       .catch((err) => {
-        console.log("Get users contri error: ", err.message)
         res.status(500).json({ error: err.message });
       });
   });
@@ -28,6 +27,8 @@ const userRouter = () => {
   router.get("/favs/:id", (req, res) => {
     userQueries.getUserFavs(1) //Change 1 to req.params.id if we use user info
       .then((favs) => {
+        const cookie = { id: req.cookies.mapID}
+        favs.splice(0,0,cookie);
         res.json(favs);
       })
       .catch((err) => {
@@ -36,7 +37,16 @@ const userRouter = () => {
   });
 
   router.post("/fav", (req, res) => {
+    
     userQueries.postUserFav(1, req.cookies.mapID) //Change 1 to req.cookies.userId if we use user info
+    .then(()=>{res.send("")})
+      .catch((err) => {
+        res.status(500).json({ error: err.message });
+      });
+  });
+
+  router.post("/fav/delete/:id", (req, res) => {
+    userQueries.deleteUserFav(1, req.params.id) //Change 1 to req.cookies.userId if we use user info
     .then(()=>{res.send("")})
       .catch((err) => {
         res.status(500).json({ error: err.message });
