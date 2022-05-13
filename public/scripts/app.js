@@ -193,15 +193,18 @@ $(() => {
             pointPosted.leafletId = num;
 
             $.post(`/points/${pointPosted.id}/edit`, pointPosted);
+          })
+          .catch((err) =>{
+            console.log(`The error is ${err}`);
           });
           //*********************************************************************** */
         }
       });
   }
 
-  $("#map").on("submit", ".pointForm", function (event) {
+  $("#map").on("submit", ".point-form", function (event) {
     event.preventDefault();
-
+    console.log("Submit")
     const kids = $(this).has("textarea");
     const pointToEdit = {
       title: $(kids[0][0]).val(),
