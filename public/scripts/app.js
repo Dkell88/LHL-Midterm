@@ -357,7 +357,7 @@ $(() => {
     $("#quick-links").empty()
     for(const link of links){
       $('#quick-links').prepend(`<div class="button map-link">
-      <a onclick= renderMapId(${link.id})><h3>${link.title}</h3></a>
+      <a onclick= renderMapId(${link.id})><h3><span>${link.title}</span></h3></a>
       </div>`);
     }
   }
