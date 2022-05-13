@@ -362,8 +362,11 @@ $(() => {
     });
   });
 
+  const onMapMouseUp = function (event) {
+    console.log("this is a mouse up event: ", event)
+  }
 
   renderMap(map);
   map.on("click", onMapClick);
-
+  map.on('mouseup', onMapMouseUp,);
 });
