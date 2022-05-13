@@ -109,7 +109,7 @@ $(() => {
       longitude: event.latlng.lng,
     };
     let imagePlaceHolder = "Image URL";
-    console.log(`lat: ${point.latitude} long: ${point.longitude}`);
+
     //------------------------------------------------------------------------------------------------------------
     const geocoder = new google.maps.Geocoder();
 
@@ -198,9 +198,9 @@ $(() => {
       });
   }
 
-  $("#map").on("submit", ".pointForm", function (event) {
+  $("#map").on("submit", ".point-form", function (event) {
     event.preventDefault();
-
+    console.log("Submit");
     const kids = $(this).has("textarea");
     const pointToEdit = {
       title: $(kids[0][0]).val(),
@@ -238,14 +238,10 @@ $(() => {
     layerToDelete = getPopupID();
     pointIdToDelete = layerToDelete.options.title;
 
-    $.post(`/points/${pointIdToDelete}/delete`)
-      .then(() => {
-        layerToDelete.remove();
-        layerToDelete.remove(markerLayerGroup);
-      })
-      .catch((e) => {
-        console.log(e.responseJSON);
-      });
+    $.post(`/points/${pointIdToDelete}/delete`).then(() => {
+      layerToDelete.remove();
+      layerToDelete.remove(markerLayerGroup);
+    });
   });
 
   $("#map").on("click", ".pin-deets-edit", function (event) {
@@ -370,18 +366,14 @@ $(() => {
   const mapMoved = function (event) {
     const zoom = 18 - map.getZoom();
     const latLng = map.getCenter();
-    console.log(latLng);
-    console.log(zoom);
     const viewArea = {
       minLat: latLng.lat - (zoom * 0.5 + 0.05),
       maxLat: latLng.lat + (zoom * 0.5 + 0.05),
       minLng: latLng.lng - (zoom * 0.5 + 0.05),
       maxLng: latLng.lng + (zoom * 0.5 + 0.05),
     };
-    console.log(viewArea);
     //$.get('maps/', viewArea)
     $.post("maps/area", viewArea).then((maps) => {
-      console.log("Maps returned from get maps", maps);
       createQuickLinks(maps);
     });
   };

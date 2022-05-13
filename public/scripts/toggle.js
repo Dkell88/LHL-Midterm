@@ -20,6 +20,13 @@ $(() => {
     savemap.classList.toggle("active");
   });
 
+  const map = document.querySelector("#map");
+  map.addEventListener("click", () => {
+    menuToggle.classList.remove("active");
+    showcase.classList.remove("active");
+    savemap.classList.remove("active");
+  });
+
   toggleList(".favourites", ".contributions");
   toggleList(".contributions", ".favourites");
 });

@@ -4,9 +4,10 @@ const showTitleAndIcons = (command, title) => {
     $(".map-title").text(title).show();
     $("#save-map").hide();
     $("#new-map-title").val("");
-    if($("#login").is(":visibile")){
+    //if($("#login").is(":visibile")){
        $(".heart").css("visibility", "visible");
-    }
+    //}
+
     return
   }
   $(".map-title").text();

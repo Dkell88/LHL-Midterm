@@ -20,7 +20,6 @@ $(() => {
         type: "get",
         url: "/users/1",
         success: function (response) {
-          console.log("response", response);
           $(".name").text(response.users.name);
           $(".email").text(response.users.email);
           $(".password").text(response.users.password);
