@@ -22,7 +22,7 @@ $(() => {
     $(".register").css("display", "inline");
 
     $(".heart").css("visibility", "hidden");
-    $(".map-title").css("visibility", "hidden");
+    $(".map-title").css("display", "none");
   });
 
   $("#login").click(() => {

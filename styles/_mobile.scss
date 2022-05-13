@@ -5,11 +5,14 @@
       left: 10%;
     }
   }
-  #header {
-    h1 {
-    }
-  }
 }
 
 @media (max-width: 550px) {
+  #showcase {
+    #header {
+      h1 {
+        font-size: rem;
+      }
+    }
+  }
 }
