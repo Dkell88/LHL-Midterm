@@ -384,7 +384,6 @@ $(() => {
   }
 
  
-
   renderMap(map);
   map.on("click", onMapClick);
   map.on('mouseup', mapMoved,);
