@@ -1,7 +1,6 @@
 const toggleList = (class1, class2) => {
   const classOne = document.querySelector(class1);
-  const classTwo = document.querySelector(class2);
-  const nextSibling = classTwo.nextElementSibling;
+  const nextSibling = document.querySelector(class2).nextElementSibling;
   classOne.addEventListener("click", () => {
     if (!nextSibling.classList.contains("closed")) {
       nextSibling.classList.add("closed");
