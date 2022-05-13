@@ -1,7 +1,12 @@
-const toggleList = (className) => {
-  const mapList = document.querySelector(className);
-  mapList.addEventListener("click", () => {
-    const list = document.querySelector(`${className} + .list`);
+const toggleList = (class1, class2) => {
+  const classOne = document.querySelector(class1);
+  const classTwo = document.querySelector(class2);
+  const nextSibling = classTwo.nextElementSibling;
+  classOne.addEventListener("click", () => {
+    if (!nextSibling.classList.contains("closed")) {
+      nextSibling.classList.add("closed");
+    }
+    const list = document.querySelector(`${class1} + .list`);
     list.classList.toggle("closed");
   });
 };
@@ -16,6 +21,6 @@ $(() => {
     savemap.classList.toggle("active");
   });
 
-  toggleList(".favourites");
-  toggleList(".contributions");
+  toggleList(".favourites", ".contributions");
+  toggleList(".contributions", ".favourites");
 });
