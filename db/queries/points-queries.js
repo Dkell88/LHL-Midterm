@@ -11,7 +11,7 @@ const getPoints = () => {
 
 const getMapPoints = (id) => {
   const query = `
-    SELECT points.latitude, points.longitude
+    SELECT points.*
     FROM points
     JOIN maps ON maps.id = map_id
     WHERE maps.id = $1`;

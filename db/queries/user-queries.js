@@ -54,10 +54,18 @@ const postUserFav = (id, fav) => {
 
 };
 
+const deleteUserFav = (user, map) => {
+  const queryString = `
+    DELETE FROM favourites
+    WHERE user_id = $1 AND map_id = $2`;
+  const queryParams = [user, map];
+  return db.query(queryString, queryParams)
+};
 
 module.exports = { 
   getUser,
   getUserContri,
   getUserFavs,
-  postUserFav
+  postUserFav,
+  deleteUserFav
 };
