@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const mapQueries = require("../db/queries/map-queries");
+const bodyParser = require("body-parser");
 
 const mapsRouter = () => {
 
@@ -9,6 +10,17 @@ const mapsRouter = () => {
         .then((map) => {
           res.cookie("mapID", req.params.mapID);
           res.json(map);
+        })
+        .catch((err) => {
+          res.status(500).json({ error: err.message });
+        });
+  });
+
+  // router.get("/", (req, res) => {
+  router.post("/area", (req, res) => {
+    mapQueries.getMaps(req.body)
+        .then((maps) => {;
+          res.json(maps);
         })
         .catch((err) => {
           res.status(500).json({ error: err.message });
@@ -24,7 +36,6 @@ const mapsRouter = () => {
         res.status(200).end();
       })
       .catch((err) => {
-        console.log("catch block");
         res.status(500).json({ error: err.message });
       });
   });
