@@ -1,0 +1,15 @@
+@media (max-width: 768px) {
+  #save-map {
+    left: 32%;
+    &.active {
+      left: 10%;
+    }
+  }
+  #header {
+    h1 {
+    }
+  }
+}
+
+@media (max-width: 550px) {
+}

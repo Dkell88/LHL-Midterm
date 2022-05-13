@@ -5,6 +5,9 @@
   left: 42%;
   z-index: 40000;
   transition: all 0.5s ease;
+  &.active {
+    left: 22%;
+  }
   input {
     border-radius: 25px;
     height: 2.3rem;
@@ -16,14 +19,8 @@
       outline: none;
     }
   }
+
   button {
     background-color: $primary-color;
-    // background-color: $primary-color;
-    // cursor: pointer;
-    // transition: 0.2s all ease-in;
-    // &:hover {
-    //   background-color: $third-color;
-    //   transform: scale(1.1);
-    // }
   }
 }

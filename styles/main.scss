@@ -143,12 +143,13 @@ p {
       }
       .toggle {
         position: relative;
-        width: 60px;
-        height: 60px;
+        width: 40px;
+        height: 40px;
         background: url("../icons/menu.png");
         background-repeat: no-repeat;
         background-size: 30px;
         background-position: center;
+        padding-left: 1rem;
         cursor: pointer;
         transition: all 0.1s ease-in-out;
         &:hover {
@@ -181,8 +182,7 @@ p {
   }
 }
 
-.showcase.active,
-#save-map.active {
+.showcase.active {
   right: 250px;
 }
 

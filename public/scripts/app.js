@@ -102,7 +102,6 @@ $(() => {
   };
 
   function onMapClick(event) {
-
     let point = {
       mapId: -999, //Set by cookies when POST call is make
       leafletId: -999, //Set after POST is made and marker is creted.
@@ -161,8 +160,6 @@ $(() => {
             }
           }
           //*********************************************************************** */
-
-
 
           $.post("points/", point).then((pointPosted) => {
             let marker = new L.marker(
@@ -342,8 +339,7 @@ $(() => {
     console.log("Create clicked");
     markerLayerGroup.clearLayers();
     getCurrentUserLocation(map);
-    showTitleAndIcons(false)
-
+    showTitleAndIcons(false);
   });
 
   $("#new-map").on("click", () => {
@@ -357,16 +353,16 @@ $(() => {
       success: (data) => {
         console.log("data", data);
         loadContri(1); //remove this!!!
-        showTitleAndIcons(true, data.title)
+        showTitleAndIcons(true, data.title);
       },
     });
   });
 
   const onMapMouseUp = function (event) {
-    console.log("this is a mouse up event: ", event)
-  }
+    console.log("this is a mouse up event: ", event);
+  };
 
   renderMap(map);
   map.on("click", onMapClick);
-  map.on('mouseup', onMapMouseUp,);
+  map.on("mouseup", onMapMouseUp);
 });
