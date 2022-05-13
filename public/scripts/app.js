@@ -113,7 +113,7 @@ $(() => {
       longitude: event.latlng.lng,
     };
     let imagePlaceHolder = "Image URL";
-    console.log(`lat: ${point.latitude} long: ${point.longitude}`)
+    
     //------------------------------------------------------------------------------------------------------------
     const geocoder = new google.maps.Geocoder();
 

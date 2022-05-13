@@ -7,6 +7,7 @@ const showTitleAndIcons = (command, title) => {
     //if($("#login").is(":visibile")){
        $(".heart").css("visibility", "visible");
     //}
+
     return
   }
   $(".map-title").text();
